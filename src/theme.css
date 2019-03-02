@@ -180,6 +180,8 @@ body {
   font-family: 'Iosevka Medium', monospace;
   line-height: 1.3em;
   word-wrap: break-word;
+  border: thin;
+  border-style: groove;
 }
 
 .reveal code {
@@ -188,9 +190,11 @@ body {
 
 .reveal pre code {
   display: block;
-  padding: 5px;
+  padding: 10px;
   overflow: auto;
-  word-wrap: normal; }
+  word-wrap: normal;
+  background-color: snow;
+}
 
 .reveal pre code mark {
   background-color: #fff7a9;
