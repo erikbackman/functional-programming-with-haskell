@@ -21,8 +21,25 @@ This is my note.
 
 ## Programmera med matematiska funktioner
 
-Likhet innebär att vi alltid kan ersätta uttryck med dess värde och vice
-versa. Detta kallas ofta för _referenstransparens_.
+En funktion \\( f : A \\rightarrow B \\) är en relation från \\(A\\) till
+\\(B\\) som definerar exakt ett element i \\(B\\) till varje element i \\(A\\).
+
+```{.haskell}
+data A = A1 | A2 
+
+data B = B1 | B2
+
+f :: A -> B
+f A1 = B1
+f A2 = B2
+```
+
+
+## Referenstransparens
+
+I Haskell, när vi ser ett likhetstecken innebär detta att vi alltid kan
+substituera ett uttryck med dess värde och vice versa. Detta kallas ofta för _referenstransparens_.
+
 ```{.haskell}
 square x = x * x
 
@@ -38,6 +55,83 @@ p = 4
 ```
 Dubbelriktad substitution är alltid möjligt eftersom Haskell är rent.</br>
 Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
+
+## Refaktorering
+Eftersom vi inte behöver ta hänsyn till sido-effekter kan vi alltid simplifiera
+ett program utan att dess egenskaper förändras.
+
+```{.haskell}
+p = f x + f y * (f x - f x)
+```
+. . . 
+
+```{.haskell}
+p = f x + f y * 0
+```
+
+. . . 
+
+```{.haskell}
+p = f x + 0
+```
+
+. . . 
+
+```{.haskell}
+p = f x
+```
+
+## Ekvationella resonemang
+Funktionell programmering och referenstransparens möjliggör för ekvationella
+resonemang om ett programs egenskaper.
+
+```{.haskell}
+reverse :: [a] -> [a]
+reverse []     = []
+reverse (x:xs) = reverse xs ++ [x]
+```
+. . . 
+
+Vi kan bevisa att reverse [x] = [x], för alla x
+
+```{.haskell}
+reverse [x]
+reverse (x: [])
+reverse [] ++ [x]
+[] ++ [x]
+[x]
+```
+
+## Komposition
+
+\\((f \\circ g) x = f (g(x))\\)
+
+. . .
+```{.haskell}
+reverseSort :: [a] -> [a]
+reverseSort = reverse . sort
+```
+
+```{.haskell}
+> reverseSort [4,1,2] -- reverse (sort [4,1,2])
+[4,2,1]
+```
+Med sido-effekter hade komposition ej vart möjligt.
+
+## Vad är Haskell?
+* Släpptes första gången år 1990.
+  * Haskell 1.0 (1990)
+  * Haskell 2010 (Senaste)
+  * GHC 8.6.3 (December 2018)
+* Rent, funktionell programmeringsspråk med lat evaluering.
+* Tolkat såväl som kompilerat.
+  * GHCi är en REPL där Haskell-kod kan tolkas.
+  * Källkod simpliferas till GHC-Core och optimeras.
+    * GHC-Core är en typad lambdacalculus kallad System-FC
+  * GHC-Core kompileras till maskinkod.
+* Utbyggbart per design.
+* Ledande inom programmeringsspråk-utveckling.
+ 
 
 ## Ren Funktionell Programmering med sido-effekter
 
@@ -60,52 +154,6 @@ main = putStrLn "Hello World"
 ```
 > ./example
 Hello World
-```
-
-## Refaktorering
-Vi kan alltid simplifiera ett program och vara säkra på att programmet inte ändrats.
-```{.haskell}
-p = f x + f y * (f x - f x)
-```
-. . . 
-
-```{.haskell}
-p = f x + f y * 0
-```
-
-. . . 
-
-```{.haskell}
-p = f x + 0
-```
-
-. . . 
-
-```{.haskell}
-p = f x
-```
-Om f inte är referentiellt transparent blir det svårare att resonera om vårt
-program eftersom vi mentalt måste simulera programmet och dess tillstånd.
-
-## Ekvationella resonemang
-Funktionell programmering och referenstransparens möjliggör för ekvationella
-resonemang om ett programs egenskaper.
-
-```{.haskell}
-reverse :: [a] -> [a]
-reverse []     = []
-reverse (x:xs) = reverse xs ++ [x]
-```
-. . . 
-
-Vi kan bevisa att [x] = [x], för alla x
-
-```{.haskell}
-reverse [x] =
-reverse (x: []) =
-reverse [] ++ [x] =
-[] ++ [x] =
-[x]
 ```
 
 ## Parametrisk polymorfism
