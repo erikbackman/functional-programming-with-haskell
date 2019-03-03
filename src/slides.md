@@ -92,7 +92,7 @@ reverse (x:xs) = reverse xs ++ [x]
 ```
 . . . 
 
-Vi kan bevisa att reverse [x] = [x], för alla x
+Vi kan bevisa att: \\(\\forall x. reverse [x] = [x]\\)
 
 ```{.haskell}
 reverse [x]
@@ -105,6 +105,11 @@ reverse [] ++ [x]
 ## Komposition
 
 \\((f \\circ g) x = f (g(x))\\)
+
+. . .
+```{.haskell}
+(.) :: (b -> c) -> (a -> b) -> (a -> c)
+```
 
 . . .
 ```{.haskell}
@@ -123,26 +128,40 @@ Med sido-effekter hade komposition ej vart möjligt.
   * Haskell 1.0 (1990)
   * Haskell 2010 (Senaste)
   * GHC 8.6.3 (December 2018)
+  * Fick sitt namn efter den amerikanska logikern Haskell Curry
 * Rent, funktionell programmeringsspråk med lat evaluering.
+* Stark statisk typning med typinferens.
 * Tolkat såväl som kompilerat.
   * GHCi är en REPL där Haskell-kod kan tolkas.
   * Källkod simpliferas till GHC-Core och optimeras.
-    * GHC-Core är en typad lambdacalculus kallad System-FC
+    * GHC-Core är en typad lambdacalculus kallad System FC
   * GHC-Core kompileras till maskinkod.
 * Utbyggbart per design.
 * Ledande inom programmeringsspråk-utveckling.
+
+## Haskell's ekosystem
+http://www.haskell.org/
+
+* **Haskell Stack**
+* Haskell Platform
+* GHC
+
+Pakethantering
+
+* Hackage
+* Stackage
  
 
-## Ren Funktionell Programmering med sido-effekter
+## Sido-effekter
 
-En effekt är ett värde.
+I Haskell är en effekt ett första-klassens värde.
 ```{.haskell}
 getLine :: IO String             -- En effekt som producerar en `String`
 
 putStrLn :: String -> IO ()      -- En funktion från `String` till en effekt
 ```
 
-Det enda sättet att exekvera en effekt är genom att likställa den med main
+Det enda sättet att exekvera en effekt är genom att likställa den med main.
 
 ```{.haskell}
 x = putStrLn "Goodbye World"
@@ -156,11 +175,70 @@ main = putStrLn "Hello World"
 Hello World
 ```
 
+## Högre ordningens funktioner
+
+```{.haskell}
+(++) :: [a] -> [a] -> [a]
+```
+. . .
+```{.haskell}
+exclaim :: String -> String                 -- String är alias för [Char]
+exclaim = (++ "!")
+```
+
+. . .
+```{.haskell}
+shout :: String -> String
+shout = exclaim . toUpper
+```
+
+```{.haskell}
+> stack build
+error:
+    • Couldn't match type ‘Char’ with ‘[Char]’
+      Expected type: Char -> [Char]
+        Actual type: Char -> Char
+    • In the second argument of ‘(.)’, namely ‘toUpper’
+      In the expression: exclaim . toUpper
+      In an equation for ‘shout’: shout = exclaim . toUpper
+
+```
+
+## Högre ordningens funktioner
+
+```{.haskell}
+> :t toUpper
+toUpper :: Char -> Char
+```
+. . .
+```{.haskell}
+> :t map toUpper :: [Char] -> [Char]
+```
+. . .
+
+
+```{.haskell}
+shout :: String -> String
+shout = exclaim . map toUpper
+```
+
+```{.haskell}
+> shout "hello" 
+"HELLO!"
+```
+
 ## Parametrisk polymorfism
 
-Typer kan ofta guida oss till en korrekt implementation
+Typer säger mycket om vad en funktion gör. De kan också guida oss till en korrekt implementation.
+
 ```{.haskell}
-id :: forall a. a -> a
+map :: (a -> b) -> [a] -> [b]
+map f as = ...
+```
+. . .
+
+```{.haskell}
+id :: a -> a                -- id :: forall a. a -> a
 ```
 . . .
 
@@ -172,6 +250,8 @@ const :: a -> b -> a
 ```{.haskell}
 flip :: (a -> b -> c) -> b -> a -> c
 ```
+"Hole-driven Haskell" är en avancerad teknik där vi använder typer för att låta
+kompilatorn guida oss till en korrekt implementation, baserad på bevis.
 
 ## Ad-hoc polymorfism
 
@@ -186,6 +266,7 @@ flip :: (a -> b -> c) -> b -> a -> c
 ```{.haskell}
 compare :: Ord a => a -> a -> Ordering
 ```
+
 
 
 ## 1
