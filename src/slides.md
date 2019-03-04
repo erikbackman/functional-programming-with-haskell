@@ -139,18 +139,12 @@ Med sido-effekter hade komposition ej vart möjligt.
 * Utbyggbart per design.
 * Ledande inom programmeringsspråk-utveckling.
 
-## Haskell's ekosystem
+## Komma igång 
 http://www.haskell.org/
 
 * **Haskell Stack**
 * Haskell Platform
 * GHC
-
-Pakethantering
-
-* Hackage
-* Stackage
- 
 
 ## Sido-effekter
 
