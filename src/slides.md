@@ -140,11 +140,27 @@ Med sido-effekter hade komposition ej vart möjligt.
 * Ledande inom programmeringsspråk-utveckling.
 
 ## Komma igång 
-http://www.haskell.org/
+[http://www.haskell.org/downloads](http://www.haskell.org/downloads)
 
 * **Haskell Stack**
 * Haskell Platform
 * GHC
+
+## Böcker
+
+```{=html}
+<div class="row">
+  <div class="column">
+    <img src="images/haskellbook.png" width="250" />
+  </div>
+  <div class="column">
+    <img src="images/pih.jpg" width="250" />
+  </div>
+  <div class="column">
+    <img src="images/learnyouahaskell.jpg" width="250" />
+  </div>
+</div>
+```
 
 ## Sido-effekter
 

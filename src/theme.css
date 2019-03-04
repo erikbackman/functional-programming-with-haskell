@@ -361,3 +361,13 @@ p.author, p.date {
 @media print {
   .backgrounds {
     background-color: #fff; } }
+
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 33.33%;
+  padding: 2px;
+}

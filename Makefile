@@ -9,7 +9,7 @@ SRCS=$(shell find src -name '*.tex') \
 		 $(shell find src/examples -name '*.hs')
 
 PANDOC_FLAGS= -s \
-						  -f markdown+multiline_tables \
+						  -f markdown+multiline_tables+raw_attribute \
 						  --mathjax \
 						  --filter pandoc-include-code \
 						  --filter pandoc-emphasize-code \
