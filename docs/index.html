@@ -399,7 +399,9 @@ product (x:xs) = x * product xs
 <p>En semigroup är en mängd med en associativ binär operation på mängden.</p>
 <pre class="haskell"><code>class Semigroup a where
   (&lt;&gt;) :: a -&gt; a -&gt; a</code></pre>
-<div class="fragment">
+</section>
+<section id="semigroup-monoid-1" class="slide level2">
+<h2>Semigroup &amp; Monoid</h2>
 <p>En monoid är en semigroup med ett neutralt element.</p>
 <pre class="haskell"><code>class Semigroup a =&gt; Monoid a where
   mempty :: a
@@ -475,7 +477,6 @@ id
 </td>
 </tr>
 </table>
-</div>
 </section>
 <section id="foldable" class="slide level2">
 <h2>Foldable</h2>

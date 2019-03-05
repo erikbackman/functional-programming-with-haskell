@@ -480,6 +480,8 @@ class Semigroup a where
 ```
 . . .
 
+## Semigroup & Monoid
+
 En monoid är en semigroup med ett neutralt element.
 
 ```{.haskell}
