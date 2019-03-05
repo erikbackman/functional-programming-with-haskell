@@ -470,7 +470,7 @@ instance Num Int where
 
 ## Semigroup & Monoid
 
-En semigroup är en mängd med en associativ binär operation på mängden.
+En semigroup är algebra med en associativ binär operation.
 
 ```{.haskell}
 class Semigroup a where
@@ -480,7 +480,7 @@ class Semigroup a where
 
 ## Semigroup & Monoid
 
-En monoid är en semigroup med ett neutralt element.
+En monoid är en semigroup med ett identitetselement.
 
 ```{.haskell}
 class Semigroup a => Monoid a where
@@ -608,3 +608,7 @@ instance Semigroup [a] where
 summarize :: (Foldable f, Monoid m) => f m -> m
 summarize fm = foldr (<>) mempty fm
 ```
+
+## Functor
+
+En functor är en 
