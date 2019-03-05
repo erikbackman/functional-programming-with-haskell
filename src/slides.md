@@ -67,8 +67,6 @@ Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 ## Imperativa program kan vara svåra att resonera om
 
-Ett exempel på hur sidoeffekter försvårar möjligheten att resonera kring ett
-programs tillstånd.
 ```{.c}
 int c = 1;
 
