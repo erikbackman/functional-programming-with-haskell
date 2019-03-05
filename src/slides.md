@@ -406,10 +406,180 @@ fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 354224848179261915075
 ```
 
-## 1
-```{.haskell include=src/examples/Examples.hs snippet=simple-sum-product}
+## Kinds
+
+_Kinds_ är typer av en högre abstraktionsnivå som låter oss beskriva vilken typ
+en typkonstruktor har. 
+
+```{.haskell}
+> :kind Int
+Int :: *
 ```
-## 2
-```{.haskell emphasize=2:14-2:14,3:16-3:16,6:18-6:18,7:20-7:20 include=src/examples/Examples.hs snippet=simple-sum-product}
+. . .
+
+```{.haskell}
+> :kind [] 
+[] :: * -> *
 ```
 
+## Higher-kinded types 
+
+Begreppet Higher-kinded types härleds från Higher-order functions, funktioner
+som tar en annan funktion som argument. En typkonstruktor är _higher-kinded_
+eftersom den tar en annan typ som argument.
+
+```{.haskell}
+data Maybe a = Nothing | Just a
+```
+. . .
+
+```{.haskell}
+> :kind Maybe
+Maybe :: * -> *
+```
+. . .
+
+```{.haskell}
+> :kind Maybe Int
+Maybe Int :: *
+```
+
+## Typeclasses
+
+En algebra beskriver en mängd med ett antal operationer. I Haskell implementeras
+algebras med typeclasses.
+
+## Num
+
+```{.haskell}
+class Num a where
+  (+) :: a -> a -> a
+  (-) :: a -> a -> a
+  (*) :: a -> a -> a
+```
+. . .
+
+```{.haskell}
+instance Num Int where
+  x + y = ... 
+  x - y = ...
+  x * y = ...
+```
+. . .
+
+```{.haskell include=src/examples/Examples.hs snippet=simple-sum-product}
+```
+
+## Semigroup & Monoid
+
+En semigroup är en mängd med en associativ binär operation på mängden.
+
+```{.haskell}
+class Semigroup a where
+  (<>) :: a -> a -> a
+```
+. . .
+
+En monoid är en semigroup med ett neutralt element.
+
+```{.haskell}
+class Semigroup a => Monoid a where
+  mempty :: a
+  mappend :: a -> a -> a
+```
+
+ <table style="width:100%">
+  <th colspan=3>Exempel</th>
+  <tr>
+    <th>Typ</th>
+    <th>Operation</th>
+    <th>Neutralt element</th>
+  </tr>
+  <tr>
+    <td>Int</td>
+    <td>+</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>Int</td>
+    <td>*</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>Bool</td>
+    <td>&&</td>
+    <td>True</td>
+  </tr>
+  <tr>
+    <td>String</td>
+    <td>++</td>
+    <td>""</td>
+  </tr>
+  <tr>
+    <td>a ```->``` a</td>
+    <td>.</td>
+    <td>id</td>
+  </tr>
+</table> 
+
+## Foldable
+
+_Higher-kinded types_ låter oss abstrahera över typkonstruktors. </br>
+Här är 't' en typkonstruktor av kind: ```* -> *```
+
+```{.haskell}
+class Foldable (t :: * -> *) where
+  foldr :: (a -> b -> b) -> b -> t a -> b
+```
+. . .
+
+```{.haskell}
+1 : 2 : 3 : []
+```
+. . .
+
+```{.haskell}
+1 + 2 + 3 + 0
+```
+. . .
+
+```{.haskell}
+1 * 2 * 3 * 1
+```
+
+## Foldable
+
+```{.haskell emphasize=2:14-2:14,3:16-3:16,6:18-6:18,7:20-7:20 include=src/examples/Examples.hs snippet=simple-sum-product}
+```
+. . .
+
+```{.haskell}
+sum :: Num a => [a] -> a
+sum xs = foldr (+) 0 xs
+
+product :: Num a => [a] -> a
+product xs = foldr (*) 1 xs
+```
+. . .
+
+```{.haskell}
+sum :: (Foldable t, Num a) => t a -> a
+sum xs = foldr (+) 0 xs
+
+product :: (Foldable t, Num a) => t a -> a
+product xs = foldr (*) 1 xs
+```
+
+## Foldable
+
+```{.haskell}
+instance Semigroup [a] where
+  []     <> ys = ys
+  (x:xs) <> ys = x : (xs <> ys)
+```
+. . .
+
+```{.haskell}
+instance Semigroup [a] where
+  xs <> ys = foldr (:) ys xs
+```
