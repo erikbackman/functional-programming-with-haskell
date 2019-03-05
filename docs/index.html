@@ -477,6 +477,20 @@ id
 </tr>
 </table>
 </section>
+<section id="semigroup-monoid-2" class="slide level2">
+<h2>Semigroup &amp; Monoid</h2>
+<pre class="haskell"><code>&gt; &quot;foo&quot; &lt;&gt; &quot;bar&quot;
+&quot;foobar&quot;</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; [1,2,3] &lt;&gt; mempty
+[1,2,3]
+</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; (&quot;Foo&quot;, &quot;Hello&quot;) &lt;&gt; (&quot;Bar&quot;, &quot; World&quot;)
+(&quot;FooBar&quot;,&quot;Hello World&quot;)</code></pre>
+</div>
+</section>
 <section id="foldable" class="slide level2">
 <h2>Foldable</h2>
 <p><em>Higher-kinded types</em> låter oss abstrahera över typkonstruktors. </br> Här är ‘t’ en typkonstruktor av kind: <code>* -&gt; *</code></p>
@@ -521,6 +535,10 @@ sum xs = foldr (+) 0 xs</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>instance Semigroup [a] where
   xs &lt;&gt; ys = foldr (:) ys xs</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>summarize :: (Foldable f, Monoid m) =&gt; f m -&gt; m
+summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </div>
 </section>
     </div>

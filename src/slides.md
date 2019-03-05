@@ -522,6 +522,27 @@ class Semigroup a => Monoid a where
   </tr>
 </table> 
 
+## Semigroup & Monoid
+
+```{.haskell}
+> "foo" <> "bar"
+"foobar"
+```
+. . .
+
+```{.haskell}
+> [1,2,3] <> mempty
+[1,2,3]
+
+```
+. . .
+
+```{.haskell}
+> ("Foo", "Hello") <> ("Bar", " World")
+("FooBar","Hello World")
+```
+. . .
+
 ## Foldable
 
 _Higher-kinded types_ låter oss abstrahera över typkonstruktors. </br>
@@ -579,4 +600,11 @@ instance Semigroup [a] where
 ```{.haskell}
 instance Semigroup [a] where
   xs <> ys = foldr (:) ys xs
+```
+
+. . .
+
+```{.haskell}
+summarize :: (Foldable f, Monoid m) => f m -> m
+summarize fm = foldr (<>) mempty fm
 ```
