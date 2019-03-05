@@ -508,16 +508,12 @@ sum xs = foldr (+) 0 xs
 product :: Num a =&gt; [a] -&gt; a
 product xs = foldr (*) 1 xs</code></pre>
 </div>
+<div class="fragment">
+<pre class="haskell"><code>sum :: (Foldable t, Num a) =&gt; t a -&gt; a
+sum xs = foldr (+) 0 xs</code></pre>
+</div>
 </section>
 <section id="foldable-2" class="slide level2">
-<h2>Foldable</h2>
-<pre class="haskell"><code>sum :: (Foldable t, Num a) =&gt; t a -&gt; a
-sum xs = foldr (+) 0 xs
-
-product :: (Foldable t, Num a) =&gt; t a -&gt; a
-product xs = foldr (*) 1 xs</code></pre>
-</section>
-<section id="foldable-3" class="slide level2">
 <h2>Foldable</h2>
 <pre class="haskell"><code>instance Semigroup [a] where
   []     &lt;&gt; ys = ys
