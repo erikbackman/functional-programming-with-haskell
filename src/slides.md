@@ -34,11 +34,20 @@ f A1 = B1
 f A2 = B2
 ```
 
+## Funktioner
+
+I Haskell defineras en funktion som en ekvation.
+
+```{.haskell}
+square x = x * x
+
+p = square 2
+```
 
 ## Referenstransparens
 
-I Haskell, när vi ser ett likhetstecken innebär detta att vi alltid kan
-substituera ett uttryck med dess värde och vice versa. Detta kallas ofta för _referenstransparens_.
+Likhet innebär att vi kan byta ut square x för x * x och vice versa.
+Detta kallas ofta för _referenstransparens_.
 
 ```{.haskell}
 square x = x * x
@@ -56,8 +65,30 @@ p = 4
 Dubbelriktad substitution är alltid möjligt eftersom Haskell är rent.</br>
 Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
+## Imperativa program kan vara svåra att resonera om
+
+Ett exempel på hur sidoeffekter försvårar möjligheten att resonera kring ett
+programs tillstånd.
+```{.c}
+int c = 1;
+
+int addOne(int x) {
+  return x + c;
+}
+
+int addTwo(int x) {
+  c++;
+  return x + c;
+}
+
+addOne(1); // 2
+addTwo(2); // 4
+addTwo(3); // 6
+```
+Rena funktionella språk som Haskell saknar tilldelningssatser.
+
 ## Refaktorering
-Eftersom vi inte behöver ta hänsyn till sido-effekter kan vi alltid simplifiera
+Eftersom vi inte behöver ta hänsyn till sidoeffekter kan vi alltid simplifiera
 ett program utan att dess egenskaper förändras.
 
 ```{.haskell}
@@ -162,7 +193,13 @@ Med sido-effekter hade komposition ej vart möjligt.
 </div>
 ```
 
-## Sido-effekter
+## Ren Funktionell Programmering <br/> med haskell
+![](images/haskell_logo2.svg)
+
+## Haskell och IO
+![](images/haskellmeme01.png)
+
+## Haskell och IO
 
 I Haskell är en effekt ett första-klassens värde.
 ```{.haskell}
@@ -174,6 +211,8 @@ putStrLn :: String -> IO ()      -- En funktion från `String` till en effekt
 Det enda sättet att exekvera en effekt är genom att likställa den med main.
 
 ```{.haskell}
+module Main where
+
 x = putStrLn "Goodbye World"
 
 main :: IO ()
@@ -277,7 +316,95 @@ kompilatorn guida oss till en korrekt implementation, baserad på bevis.
 compare :: Ord a => a -> a -> Ordering
 ```
 
+## Algebraiska datatyper
 
+Algebraiska datatyper formar en algerbra med två operationer, summa och produkt.
+```{.haskell}
+data Bool = True | False
+```
+. . . 
+
+```{.haskell}
+data Pair a b = Pair a b
+```
+. . .
+
+```{.haskell}
+data Tree = Empty | Node (Tree a) a (Tree a) deriving Show
+```
+. . .
+
+```{.haskell}
+data [] a = [] | a : [a] 
+```
+
+## Algebraiska datatyper och funktioner
+
+```{.haskell}
+not :: Bool -> Bool
+not True  = False
+not False = True 
+```
+. . .
+
+```{.haskell}
+first :: Pair a b -> a
+first (Pair a b) = a
+```
+. . .
+
+List är en rekursiv datatyp, här använder vi rekursion för att beräkna längden.
+```{.haskell}
+length :: [a] -> Int
+length []          = 0
+length (head:tail) = 1 + length tail
+```
+
+## Lat evaluering
+
+```{.haskell}
+if length xs == 0 || length ys == 0
+then ...
+else ...
+```
+. . .
+
+```{.haskell}
+(||) :: Bool -> Bool -> Bool
+True  || _ = True
+False || x = x
+```
+
+## Lat evaluering
+
+```{.haskell}
+> take 5 [1..]
+[1,2,3,4,5]
+```
+. . .
+
+```{.haskell}
+> take 5 . tail $ [1..]
+[2,3,4,5,6]
+```
+. . .
+
+</br>
+```{.haskell}
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+```
+. . .
+
+```{.haskell}
+> take 10 fibs
+[0,1,1,2,3,5,8,13,21,34]
+```
+. . .
+
+```{.haskell}
+> fibs !! 100 
+354224848179261915075
+```
 
 ## 1
 ```{.haskell include=src/examples/Examples.hs snippet=simple-sum-product}
