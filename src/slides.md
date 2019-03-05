@@ -560,8 +560,8 @@ sum xs = foldr (+) 0 xs
 product :: Num a => [a] -> a
 product xs = foldr (*) 1 xs
 ```
-. . .
 
+## Foldable
 ```{.haskell}
 sum :: (Foldable t, Num a) => t a -> a
 sum xs = foldr (+) 0 xs
