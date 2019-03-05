@@ -77,10 +77,10 @@ target/html/index.html: $(SRCS) src/header.html src/theme.css $(IMAGES)
 	mkdir -p target/html
 	cp -r lib/* target/html/
 	cp -r src/images target/html/
-	cp src/theme.css target/html/reveal.js/css/theme/owickstrom.css
+	cp src/theme.css target/html/reveal.js/css/theme/ebackman.css
 	pandoc $(PANDOC_FLAGS) \
 		-t revealjs \
-		-V theme=owickstrom \
+		-V theme=ebackman \
 		-V controls=true \
 		-V transition=slide \
 		-V transitionSpeed=fast \
