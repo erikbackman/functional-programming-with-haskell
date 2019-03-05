@@ -470,7 +470,7 @@ instance Num Int where
 
 ## Semigroup & Monoid
 
-En semigroup är algebra med en associativ binär operation.
+En semigroup är en algebra med en associativ binär operation.
 
 ```{.haskell}
 class Semigroup a where
@@ -493,7 +493,7 @@ class Semigroup a => Monoid a where
   <tr>
     <th>Typ</th>
     <th>Operation</th>
-    <th>Neutralt element</th>
+    <th>Identitetselement</th>
   </tr>
   <tr>
     <td>Int</td>
