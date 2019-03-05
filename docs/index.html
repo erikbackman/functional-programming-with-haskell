@@ -395,13 +395,13 @@ product (x:xs) = x * product xs
 </section>
 <section id="semigroup-monoid" class="slide level2">
 <h2>Semigroup &amp; Monoid</h2>
-<p>En semigroup är en mängd med en associativ binär operation på mängden.</p>
+<p>En semigroup är algebra med en associativ binär operation.</p>
 <pre class="haskell"><code>class Semigroup a where
   (&lt;&gt;) :: a -&gt; a -&gt; a</code></pre>
 </section>
 <section id="semigroup-monoid-1" class="slide level2">
 <h2>Semigroup &amp; Monoid</h2>
-<p>En monoid är en semigroup med ett neutralt element.</p>
+<p>En monoid är en semigroup med ett identitetselement.</p>
 <pre class="haskell"><code>class Semigroup a =&gt; Monoid a where
   mempty :: a
   mappend :: a -&gt; a -&gt; a</code></pre>
@@ -540,6 +540,10 @@ sum xs = foldr (+) 0 xs</code></pre>
 <pre class="haskell"><code>summarize :: (Foldable f, Monoid m) =&gt; f m -&gt; m
 summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </div>
+</section>
+<section id="functor" class="slide level2">
+<h2>Functor</h2>
+<p>En functor är en</p>
 </section>
     </div>
   </div>
