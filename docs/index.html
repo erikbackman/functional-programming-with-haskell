@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Erik Bäckman">
+  <title>Funktionell Programmering</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/ebackman.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="highlight.js/styles/idea.css">
+  <script src="highlight.js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Funktionell Programmering</h1>
+  <p class="subtitle">med Haskell</p>
+  <p class="author">Erik Bäckman</p>
+  <p class="date">April 2019</p>
+</section>
+
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li>Introduktion till Funktionell Programmering</li>
+<li>Ren Funktionell Programmering med Haskell</li>
+<li>Live-kod</li>
+</ul>
+<aside class="notes">
+<p>This is my note.</p>
+<ul>
+<li>It can contain Markdown</li>
+<li>like this list</li>
+</ul>
+</aside>
+</section>
+<section id="programmera-med-matematiska-funktioner" class="slide level2">
+<h2>Programmera med matematiska funktioner</h2>
+<p>En funktion \( f : A \rightarrow B \) är en relation från \(A\) till \(B\) som definerar exakt ett element i \(B\) till varje element i \(A\).</p>
+<pre class="haskell"><code>data A = A1 | A2 
+
+data B = B1 | B2
+
+f :: A -&gt; B
+f A1 = B1
+f A2 = B2</code></pre>
+</section>
+<section id="funktioner" class="slide level2">
+<h2>Funktioner</h2>
+<p>I Haskell defineras en funktion som en ekvation.</p>
+<pre class="haskell"><code>square x = x * x
+
+p = square 2</code></pre>
+</section>
+<section id="referenstransparens" class="slide level2">
+<h2>Referenstransparens</h2>
+<p>Likhet innebär att vi kan byta ut square x för x * x och vice versa. Detta kallas ofta för <em>referenstransparens</em>.</p>
+<pre class="haskell"><code>square x = x * x
+
+p = square 2</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>p = 2 * 2</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>p = 4</code></pre>
+<p>Dubbelriktad substitution är alltid möjligt eftersom Haskell är rent.</br> Ett Haskell-program är ett enda stort referentiellt transparent uttryck.</p>
+</div>
+</section>
+<section id="imperativa-program-kan-vara-svåra-att-resonera-om" class="slide level2">
+<h2>Imperativa program kan vara svåra att resonera om</h2>
+<p>Ett exempel på hur sidoeffekter försvårar möjligheten att resonera kring ett programs tillstånd.</p>
+<pre class="c"><code>int c = 1;
+
+int addOne(int x) {
+  return x + c;
+}
+
+int addTwo(int x) {
+  c++;
+  return x + c;
+}
+
+addOne(1); // 2
+addTwo(2); // 4
+addTwo(3); // 6</code></pre>
+<p>Rena funktionella språk som Haskell saknar tilldelningssatser.</p>
+</section>
+<section id="refaktorering" class="slide level2">
+<h2>Refaktorering</h2>
+<p>Eftersom vi inte behöver ta hänsyn till sidoeffekter kan vi alltid simplifiera ett program utan att dess egenskaper förändras.</p>
+<pre class="haskell"><code>p = f x + f y * (f x - f x)</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>p = f x + f y * 0</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>p = f x + 0</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>p = f x</code></pre>
+</div>
+</section>
+<section id="ekvationella-resonemang" class="slide level2">
+<h2>Ekvationella resonemang</h2>
+<p>Funktionell programmering och referenstransparens möjliggör för ekvationella resonemang om ett programs egenskaper.</p>
+<pre class="haskell"><code>reverse :: [a] -&gt; [a]
+reverse []     = []
+reverse (x:xs) = reverse xs ++ [x]</code></pre>
+<div class="fragment">
+<p>Vi kan bevisa att: \(\forall x. reverse [x] = [x]\)</p>
+<pre class="haskell"><code>reverse [x]
+reverse (x: [])
+reverse [] ++ [x]
+[] ++ [x]
+[x]</code></pre>
+</div>
+</section>
+<section id="komposition" class="slide level2">
+<h2>Komposition</h2>
+<p>\((f \circ g) x = f (g(x))\)</p>
+<div class="fragment">
+<pre class="haskell"><code>(.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; (a -&gt; c)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>reverseSort :: [a] -&gt; [a]
+reverseSort = reverse . sort</code></pre>
+<pre class="haskell"><code>&gt; reverseSort [4,1,2] -- reverse (sort [4,1,2])
+[4,2,1]</code></pre>
+<p>Med sido-effekter hade komposition ej vart möjligt.</p>
+</div>
+</section>
+<section id="vad-är-haskell" class="slide level2">
+<h2>Vad är Haskell?</h2>
+<ul>
+<li>Släpptes första gången år 1990.
+<ul>
+<li>Haskell 1.0 (1990)</li>
+<li>Haskell 2010 (Senaste)</li>
+<li>GHC 8.6.3 (December 2018)</li>
+<li>Fick sitt namn efter den amerikanska logikern Haskell Curry</li>
+</ul></li>
+<li>Rent, funktionell programmeringsspråk med lat evaluering.</li>
+<li>Stark statisk typning med typinferens.</li>
+<li>Tolkat såväl som kompilerat.
+<ul>
+<li>GHCi är en REPL där Haskell-kod kan tolkas.</li>
+<li>Källkod simpliferas till GHC-Core och optimeras.
+<ul>
+<li>GHC-Core är en typad lambdacalculus kallad System FC</li>
+</ul></li>
+<li>GHC-Core kompileras till maskinkod.</li>
+</ul></li>
+<li>Utbyggbart per design.</li>
+<li>Ledande inom programmeringsspråk-utveckling.</li>
+</ul>
+</section>
+<section id="komma-igång" class="slide level2">
+<h2>Komma igång</h2>
+<p><a href="http://www.haskell.org/downloads" class="uri">http://www.haskell.org/downloads</a></p>
+<ul>
+<li><strong>Haskell Stack</strong></li>
+<li>Haskell Platform</li>
+<li>GHC</li>
+</ul>
+</section>
+<section id="böcker" class="slide level2">
+<h2>Böcker</h2>
+<div class="row">
+  <div class="column">
+    <img src="images/haskellbook.png" width="250" />
+  </div>
+  <div class="column">
+    <img src="images/pih.jpg" width="250" />
+  </div>
+  <div class="column">
+    <img src="images/learnyouahaskell.jpg" width="250" />
+  </div>
+</div>
+</section>
+<section id="ren-funktionell-programmering-med-haskell" class="slide level2">
+<h2>Ren Funktionell Programmering <br/> med haskell</h2>
+<p><img data-src="images/haskell_logo2.svg" /></p>
+</section>
+<section id="haskell-och-io" class="slide level2">
+<h2>Haskell och IO</h2>
+<p><img data-src="images/haskellmeme01.png" /></p>
+</section>
+<section id="haskell-och-io-1" class="slide level2">
+<h2>Haskell och IO</h2>
+<p>I Haskell är en effekt ett första-klassens värde.</p>
+<pre class="haskell"><code>getLine :: IO String             -- En effekt som producerar en `String`
+
+putStrLn :: String -&gt; IO ()      -- En funktion från `String` till en effekt</code></pre>
+<p>Det enda sättet att exekvera en effekt är genom att likställa den med main.</p>
+<pre class="haskell"><code>module Main where
+
+x = putStrLn &quot;Goodbye World&quot;
+
+main :: IO ()
+main = putStrLn &quot;Hello World&quot;</code></pre>
+<pre><code>&gt; ./example
+Hello World</code></pre>
+</section>
+<section id="högre-ordningens-funktioner" class="slide level2">
+<h2>Högre ordningens funktioner</h2>
+<pre class="haskell"><code>(++) :: [a] -&gt; [a] -&gt; [a]</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>exclaim :: String -&gt; String                 -- String är alias för [Char]
+exclaim = (++ &quot;!&quot;)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>shout :: String -&gt; String
+shout = exclaim . toUpper</code></pre>
+<pre class="haskell"><code>&gt; stack build
+error:
+    • Couldn&#39;t match type ‘Char’ with ‘[Char]’
+      Expected type: Char -&gt; [Char]
+        Actual type: Char -&gt; Char
+    • In the second argument of ‘(.)’, namely ‘toUpper’
+      In the expression: exclaim . toUpper
+      In an equation for ‘shout’: shout = exclaim . toUpper
+</code></pre>
+</div>
+</section>
+<section id="högre-ordningens-funktioner-1" class="slide level2">
+<h2>Högre ordningens funktioner</h2>
+<pre class="haskell"><code>&gt; :t toUpper
+toUpper :: Char -&gt; Char</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :t map toUpper :: [Char] -&gt; [Char]</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>shout :: String -&gt; String
+shout = exclaim . map toUpper</code></pre>
+<pre class="haskell"><code>&gt; shout &quot;hello&quot; 
+&quot;HELLO!&quot;</code></pre>
+</div>
+</section>
+<section id="parametrisk-polymorfism" class="slide level2">
+<h2>Parametrisk polymorfism</h2>
+<p>Typer säger mycket om vad en funktion gör. De kan också guida oss till en korrekt implementation.</p>
+<pre class="haskell"><code>map :: (a -&gt; b) -&gt; [a] -&gt; [b]
+map f as = ...</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>id :: a -&gt; a                -- id :: forall a. a -&gt; a</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>const :: a -&gt; b -&gt; a</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>flip :: (a -&gt; b -&gt; c) -&gt; b -&gt; a -&gt; c</code></pre>
+<p>“Hole-driven Haskell” är en avancerad teknik där vi använder typer för att låta kompilatorn guida oss till en korrekt implementation, baserad på bevis.</p>
+</div>
+</section>
+<section id="ad-hoc-polymorfism" class="slide level2">
+<h2>Ad-hoc polymorfism</h2>
+<pre class="haskell"><code>(+) :: Num a =&gt; a -&gt; a -&gt; a </code></pre>
+<pre class="haskell"><code>(==) :: Eq a =&gt; a -&gt; a -&gt; Bool</code></pre>
+<pre class="haskell"><code>compare :: Ord a =&gt; a -&gt; a -&gt; Ordering</code></pre>
+</section>
+<section id="algebraiska-datatyper" class="slide level2">
+<h2>Algebraiska datatyper</h2>
+<p>Algebraiska datatyper formar en algerbra med två operationer, summa och produkt.</p>
+<pre class="haskell"><code>data Bool = True | False</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>data Pair a b = Pair a b</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>data Tree = Empty | Node (Tree a) a (Tree a) deriving Show</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>data [] a = [] | a : [a] </code></pre>
+</div>
+</section>
+<section id="algebraiska-datatyper-och-funktioner" class="slide level2">
+<h2>Algebraiska datatyper och funktioner</h2>
+<pre class="haskell"><code>not :: Bool -&gt; Bool
+not True  = False
+not False = True </code></pre>
+<div class="fragment">
+<pre class="haskell"><code>first :: Pair a b -&gt; a
+first (Pair a b) = a</code></pre>
+</div>
+<div class="fragment">
+<p>List är en rekursiv datatyp, här använder vi rekursion för att beräkna längden.</p>
+<pre class="haskell"><code>length :: [a] -&gt; Int
+length []          = 0
+length (head:tail) = 1 + length tail</code></pre>
+</div>
+</section>
+<section id="lat-evaluering" class="slide level2">
+<h2>Lat evaluering</h2>
+<pre class="haskell"><code>if length xs == 0 || length ys == 0
+then ...
+else ...</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>(||) :: Bool -&gt; Bool -&gt; Bool
+True  || _ = True
+False || x = x</code></pre>
+</div>
+</section>
+<section id="lat-evaluering-1" class="slide level2">
+<h2>Lat evaluering</h2>
+<pre class="haskell"><code>&gt; take 5 [1..]
+[1,2,3,4,5]</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; take 5 . tail $ [1..]
+[2,3,4,5,6]</code></pre>
+</div>
+<div class="fragment">
+<p></br></p>
+<pre class="haskell"><code>fibs = 0 : 1 : zipWith (+) fibs (tail fibs)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; take 10 fibs
+[0,1,1,2,3,5,8,13,21,34]</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; fibs !! 100 
+354224848179261915075</code></pre>
+</div>
+</section>
+<section id="kinds" class="slide level2">
+<h2>Kinds</h2>
+<p><em>Kinds</em> är typer av en högre abstraktionsnivå som låter oss beskriva vilken typ en typkonstruktor har.</p>
+<pre class="haskell"><code>&gt; :kind Int
+Int :: *</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :kind [] 
+[] :: * -&gt; *</code></pre>
+</div>
+</section>
+<section id="higher-kinded-types" class="slide level2">
+<h2>Higher-kinded types</h2>
+<p>Begreppet Higher-kinded types härleds från Higher-order functions, funktioner som tar en annan funktion som argument. En typkonstruktor är <em>higher-kinded</em> eftersom den tar en annan typ som argument.</p>
+<pre class="haskell"><code>data Maybe a = Nothing | Just a</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :kind Maybe
+Maybe :: * -&gt; *</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :kind Maybe Int
+Maybe Int :: *</code></pre>
+</div>
+</section>
+<section id="typeclasses" class="slide level2">
+<h2>Typeclasses</h2>
+<p>En algebra beskriver en mängd med ett antal operationer. I Haskell implementeras algebras med typeclasses.</p>
+</section>
+<section id="num" class="slide level2">
+<h2>Num</h2>
+<pre class="haskell"><code>class Num a where
+  (+) :: a -&gt; a -&gt; a
+  (-) :: a -&gt; a -&gt; a
+  (*) :: a -&gt; a -&gt; a</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>instance Num Int where
+  x + y = ... 
+  x - y = ...
+  x * y = ...</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>sum :: Num a =&gt; [a] -&gt; a
+sum []     = 0
+sum (x:xs) = x + sum xs
+
+product :: Num a =&gt; [a] -&gt; a
+product []     = 1
+product (x:xs) = x * product xs
+</code></pre>
+</div>
+</section>
+<section id="semigroup-monoid" class="slide level2">
+<h2>Semigroup &amp; Monoid</h2>
+<p>En semigroup är en mängd med en associativ binär operation på mängden.</p>
+<pre class="haskell"><code>class Semigroup a where
+  (&lt;&gt;) :: a -&gt; a -&gt; a</code></pre>
+<div class="fragment">
+<p>En monoid är en semigroup med ett neutralt element.</p>
+<pre class="haskell"><code>class Semigroup a =&gt; Monoid a where
+  mempty :: a
+  mappend :: a -&gt; a -&gt; a</code></pre>
+<table style="width:100%">
+<th colspan="3">
+Exempel
+</th>
+<tr>
+<th>
+Typ
+</th>
+<th>
+Operation
+</th>
+<th>
+Neutralt element
+</th>
+</tr>
+<tr>
+<td>
+Int
+</td>
+<td>
++
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+Int
+</td>
+<td>
+*
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+Bool
+</td>
+<td>
+&amp;&amp;
+</td>
+<td>
+True
+</td>
+</tr>
+<tr>
+<td>
+String
+</td>
+<td>
+++
+</td>
+<td>
+&quot;&quot;
+</td>
+</tr>
+<tr>
+<td>
+a <code>-&gt;</code> a
+</td>
+<td>
+.
+</td>
+<td>
+id
+</td>
+</tr>
+</table>
+</div>
+</section>
+<section id="foldable" class="slide level2">
+<h2>Foldable</h2>
+<p><em>Higher-kinded types</em> låter oss abstrahera över typkonstruktors. </br> Här är ‘t’ en typkonstruktor av kind: <code>* -&gt; *</code></p>
+<pre class="haskell"><code>class Foldable (t :: * -&gt; *) where
+  foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; t a -&gt; b</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>1 : 2 : 3 : []</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>1 + 2 + 3 + 0</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>1 * 2 * 3 * 1</code></pre>
+</div>
+</section>
+<section id="foldable-1" class="slide level2">
+<h2>Foldable</h2>
+<pre class="haskell"><code>sum :: Num a =&gt; [a] -&gt; a
+sum []     = <mark class="inline">0</mark>
+sum (x:xs) = x <mark class="inline">+</mark> sum xs
+
+product :: Num a =&gt; [a] -&gt; a
+product []     = <mark class="inline">1</mark>
+product (x:xs) = x <mark class="inline">*</mark> product xs</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>sum :: Num a =&gt; [a] -&gt; a
+sum xs = foldr (+) 0 xs
+
+product :: Num a =&gt; [a] -&gt; a
+product xs = foldr (*) 1 xs</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>sum :: (Foldable t, Num a) =&gt; t a -&gt; a
+sum xs = foldr (+) 0 xs
+
+product :: (Foldable t, Num a) =&gt; t a -&gt; a
+product xs = foldr (*) 1 xs</code></pre>
+</div>
+</section>
+<section id="foldable-2" class="slide level2">
+<h2>Foldable</h2>
+<pre class="haskell"><code>instance Semigroup [a] where
+  []     &lt;&gt; ys = ys
+  (x:xs) &lt;&gt; ys = x : (xs &lt;&gt; ys)</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>instance Semigroup [a] where
+  xs &lt;&gt; ys = foldr (:) ys xs</code></pre>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'fast', // default/fast/slow
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
