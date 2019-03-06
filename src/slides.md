@@ -9,6 +9,7 @@ date: April 2019
 
 * Introduktion till Funktionell Programmering
 * Ren Funktionell Programmering med Haskell
+  * massvis av ~~abstrakt nonsens~~ kod.
 * Live-kod
 
 <div class="notes">
@@ -538,10 +539,55 @@ class Semigroup a => Monoid a where
 . . .
 
 ```{.haskell}
-> ("Foo", "Hello") <> ("Bar", " World")
-("FooBar","Hello World")
+> mappend [1,2,3] [4,5,6]
+[1,2,3,4,5,6]
 ```
 . . .
+
+## Semigroup & Monoid
+
+```{.haskell}
+instance (Semigroup a, Semigroup b) => Semigroup (a, b) where
+  (a1, a2) <> (b1, b2) = (a1 <> b1, a2 <> b2)
+
+instance (Monoid a, Monoid b) => Monoid (a, b) where
+  mempty = (mempty, mempty)
+```
+. . .
+
+```{.haskell}
+> ("Foo", "Hello") <> ("Bar", "World")
+("FooBar","HelloWorld")
+```
+. . .
+
+```{.haskell}
+> ("Foo", "Hello") <> mempty
+("Foo","Hello")
+```
+
+## Semigroup & Monoid
+
+```{.haskell}
+instance (Semigroup b) => Semigroup (a -> b) where
+  f <> g = \x -> f x <> g x
+
+instance (Monoid b) => Monoid (a -> b) where
+  mempty = \_ -> mempty
+  f <> g = \x -> f x <> g x
+```
+. . .
+
+```{.haskell}
+> (id <> reverse) [1,2,3] 
+[1,2,3,3,2,1]
+```
+. . .
+
+```{.haskell}
+> mempty 1 :: [Int]
+[]
+```
 
 ## Foldable
 
@@ -611,4 +657,88 @@ summarize fm = foldr (<>) mempty fm
 
 ## Functor
 
-En functor är en 
+Inom kategoriteori är en funktor en tillordning som associerar varje objekt i en
+kategori till ett annant objekt i en annan kategori.
+
+## Functor
+
+```{.haskell}
+f :: a -> b
+
+```
+. . .
+
+```{.haskell}
+m :: Maybe a
+
+fMaybe :: Maybe a -> Maybe b
+fMaybe Nothing  = Nothing
+fMaybe (Just x) = Just (f x)
+```
+. . .
+
+```{.haskell}
+l :: [a]
+
+fList :: [a] -> [b] 
+fList []     = []
+fList (x:xs) = f x : fList xs
+```
+
+## Functor
+
+```{.haskell}
+class Functor (f :: * -> *) where
+  fmap :: (a -> b) -> f a -> f b
+```
+. . .
+
+```{.haskell}
+instance Functor Maybe where
+  fmap f Nothing  = Nothing
+  fmap f (Just x) = Just (f x)
+```
+. . .
+
+```{.haskell}
+> :type f
+f :: a -> b
+```
+. . .
+
+```{.haskell}
+> :type fmap f
+fmap f :: (Functor f) => (f a -> f b)
+```
+
+
+## Functor
+
+```{.haskell}
+> fmap (+ 1) (Just 1)
+Just 2
+```
+. . .
+
+```{.haskell}
+> fmap (+ 1) Nothing 
+Nothing
+```
+. . .
+
+```{.haskell}
+> fmap (+ 1) [1,2,3] 
+[2,3,4]
+```
+. . .
+
+```{.haskell}
+> (fmap . fmap) (+ 1) [Just 1, Nothing, Just 2] 
+[Just 2, Nothing, Just 3]
+```
+. . .
+
+```{.haskell}
+> (fmap . fmap) (+ 1) (Just [1,2,3]) 
+Just [2,3,4]
+```

@@ -48,7 +48,10 @@
 <h2>Agenda</h2>
 <ul>
 <li>Introduktion till Funktionell Programmering</li>
-<li>Ren Funktionell Programmering med Haskell</li>
+<li>Ren Funktionell Programmering med Haskell
+<ul>
+<li>massvis av <del>abstrakt nonsens</del> kod.</li>
+</ul></li>
 <li>Live-kod</li>
 </ul>
 <aside class="notes">
@@ -487,8 +490,41 @@ id
 </code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>&gt; (&quot;Foo&quot;, &quot;Hello&quot;) &lt;&gt; (&quot;Bar&quot;, &quot; World&quot;)
-(&quot;FooBar&quot;,&quot;Hello World&quot;)</code></pre>
+<pre class="haskell"><code>&gt; mappend [1,2,3] [4,5,6]
+[1,2,3,4,5,6]</code></pre>
+</div>
+</section>
+<section id="semigroup-monoid-3" class="slide level2">
+<h2>Semigroup &amp; Monoid</h2>
+<pre class="haskell"><code>instance (Semigroup a, Semigroup b) =&gt; Semigroup (a, b) where
+  (a1, a2) &lt;&gt; (b1, b2) = (a1 &lt;&gt; b1, a2 &lt;&gt; b2)
+
+instance (Monoid a, Monoid b) =&gt; Monoid (a, b) where
+  mempty = (mempty, mempty)</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; (&quot;Foo&quot;, &quot;Hello&quot;) &lt;&gt; (&quot;Bar&quot;, &quot;World&quot;)
+(&quot;FooBar&quot;,&quot;HelloWorld&quot;)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; (&quot;Foo&quot;, &quot;Hello&quot;) &lt;&gt; mempty
+(&quot;Foo&quot;,&quot;Hello&quot;)</code></pre>
+</div>
+</section>
+<section id="semigroup-monoid-4" class="slide level2">
+<h2>Semigroup &amp; Monoid</h2>
+<pre class="haskell"><code>instance (Semigroup b) =&gt; Semigroup (a -&gt; b) where
+  f &lt;&gt; g = \x -&gt; f x &lt;&gt; g x
+
+instance (Monoid b) =&gt; Monoid (a -&gt; b) where
+  mempty = \_ -&gt; mempty
+  f &lt;&gt; g = \x -&gt; f x &lt;&gt; g x</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; (id &lt;&gt; reverse) [1,2,3] 
+[1,2,3,3,2,1]</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; mempty 1 :: [Int]
+[]</code></pre>
 </div>
 </section>
 <section id="foldable" class="slide level2">
@@ -543,7 +579,65 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </section>
 <section id="functor" class="slide level2">
 <h2>Functor</h2>
-<p>En functor är en</p>
+<p>Inom kategoriteori är en funktor en tillordning som associerar varje objekt i en kategori till ett annant objekt i en annan kategori.</p>
+</section>
+<section id="functor-1" class="slide level2">
+<h2>Functor</h2>
+<pre class="haskell"><code>f :: a -&gt; b
+</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>m :: Maybe a
+
+fMaybe :: Maybe a -&gt; Maybe b
+fMaybe Nothing  = Nothing
+fMaybe (Just x) = Just (f x)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>l :: [a]
+
+fList :: [a] -&gt; [b] 
+fList []     = []
+fList (x:xs) = f x : fList xs</code></pre>
+</div>
+</section>
+<section id="functor-2" class="slide level2">
+<h2>Functor</h2>
+<pre class="haskell"><code>class Functor (f :: * -&gt; *) where
+  fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>instance Functor Maybe where
+  fmap f Nothing  = Nothing
+  fmap f (Just x) = Just (f x)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :type f
+f :: a -&gt; b</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :type fmap f
+fmap f :: (Functor f) =&gt; (f a -&gt; f b)</code></pre>
+</div>
+</section>
+<section id="functor-3" class="slide level2">
+<h2>Functor</h2>
+<pre class="haskell"><code>&gt; fmap (+ 1) (Just 1)
+Just 2</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; fmap (+ 1) Nothing 
+Nothing</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; fmap (+ 1) [1,2,3] 
+[2,3,4]</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; (fmap . fmap) (+ 1) [Just 1, Nothing, Just 2] 
+[Just 2, Nothing, Just 3]</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; (fmap . fmap) (+ 1) (Just [1,2,3]) 
+Just [2,3,4]</code></pre>
+</div>
 </section>
     </div>
   </div>
