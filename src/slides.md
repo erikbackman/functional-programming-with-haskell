@@ -189,6 +189,9 @@ Med sido-effekter hade komposition ej vart möjligt.
   <div class="column">
     <img src="images/learnyouahaskell.jpg" width="250" />
   </div>
+  <div class="column">
+    <img src="images/twt.png" width="250" />
+  </div>
 </div>
 ```
 
@@ -407,8 +410,8 @@ fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 
 ## Kinds
 
-_Kinds_ är typer av en högre abstraktionsnivå som låter oss beskriva vilken typ
-en typkonstruktor har. 
+Haskell's kindsystem kan beskrivas som ett typsystem för typer.
+Kinds ger oss ett sätt att beskriva vilen typ en typ har.
 
 ```{.haskell}
 > :kind Int
@@ -427,6 +430,8 @@ Begreppet Higher-kinded types härleds från Higher-order functions, funktioner
 som tar en annan funktion som argument. En typkonstruktor är _higher-kinded_
 eftersom den tar en annan typ som argument.
 
+. . .
+
 ```{.haskell}
 data Maybe a = Nothing | Just a
 ```
@@ -442,6 +447,21 @@ Maybe :: * -> *
 > :kind Maybe Int
 Maybe Int :: *
 ```
+. . .
+
+```{.haskell}
+> :kind Num 
+Num :: * -> Constraint
+```
+
+. . .
+
+```{.haskell}
+> :kind Monad 
+Monad :: (* -> *) -> Constraint
+```
+
+
 
 ## Typeclasses
 
@@ -738,3 +758,75 @@ Nothing
 > (fmap . fmap) (+ 1) (Just [1,2,3]) 
 Just [2,3,4]
 ```
+
+## Applicative
+
+Applicatives är monoidal funktors. Funktors låter oss lyfta en funktion över nån
+extra struktur \\(f\\).
+Applicatives låter oss applicera en funktion i \\(f\\) till ett argument i
+\\(f\\) och sedan slå samman dessa två strukturer av \\(f\\) till ett \\(f\\). 
+
+```{.haskell}
+class Functor f => Applicative (f :: * -> *) where
+  pure :: a -> f a
+  (<*>) :: f (a -> b) -> f a -> f b
+```
+
+pure låter oss returnera ett värde a i nån struktur \\(f\\) där \\(f\\) är en funktor.</br></br>
+<*> (apply) är operationen som låter oss applicera en funktion i \\(f\\) till
+ett argument i \\(f\\).
+
+. . .
+
+```{.haskell}
+  fmap  ::   (a -> b) -> f a -> f b
+  (<*>) :: f (a -> b) -> f a -> f b
+```
+
+## Monad
+
+I kategoriteori är monads applicative funktors. I Haskell används ofta monads för att
+simulera effektfulla beräkningar på ett rent funktionellt sätt. Även kallat
+_monadic computations_.
+
+```{.haskell}
+class Applicative f => Monad (f :: * -> *) where
+  (>>=) :: f a -> (a -> f b) -> f b
+```
+
+```{.haskell}
+f :: Int -> Maybe Int
+g :: Int -> Maybe Int
+
+p = f (g 1) -- Kompilerar ej.
+```
+. . .
+
+```{.haskell}
+> :t fmap f (g 1)
+fmap f (g 1) :: Maybe (Maybe Int)
+```
+
+## Monad
+```{.haskell}
+join :: Monad f => f (f a) -> f a
+```
+. . .
+
+Operationen (>>=) för monads låter oss applicera en funktion: \\(a \\rightarrow f\\ b\\) till
+ett argument: \\(f\\ a\\)
+
+```{.haskell}
+(>>=) = join . fmap
+```
+
+## Exempel på Monads i Haskell
+* Maybe 
+* Either 
+* Validation 
+* Reader
+* Writer
+* State
+
+## Live kod
+![](images/live-coding.jpg)

@@ -201,6 +201,9 @@ reverseSort = reverse . sort</code></pre>
   <div class="column">
     <img src="images/learnyouahaskell.jpg" width="250" />
   </div>
+  <div class="column">
+    <img src="images/twt.png" width="250" />
+  </div>
 </div>
 </section>
 <section id="ren-funktionell-programmering-med-haskell" class="slide level2">
@@ -348,7 +351,7 @@ False || x = x</code></pre>
 </section>
 <section id="kinds" class="slide level2">
 <h2>Kinds</h2>
-<p><em>Kinds</em> är typer av en högre abstraktionsnivå som låter oss beskriva vilken typ en typkonstruktor har.</p>
+<p>Haskell’s kindsystem kan beskrivas som ett typsystem för typer. Kinds ger oss ett sätt att beskriva vilen typ en typ har.</p>
 <pre class="haskell"><code>&gt; :kind Int
 Int :: *</code></pre>
 <div class="fragment">
@@ -359,7 +362,9 @@ Int :: *</code></pre>
 <section id="higher-kinded-types" class="slide level2">
 <h2>Higher-kinded types</h2>
 <p>Begreppet Higher-kinded types härleds från Higher-order functions, funktioner som tar en annan funktion som argument. En typkonstruktor är <em>higher-kinded</em> eftersom den tar en annan typ som argument.</p>
+<div class="fragment">
 <pre class="haskell"><code>data Maybe a = Nothing | Just a</code></pre>
+</div>
 <div class="fragment">
 <pre class="haskell"><code>&gt; :kind Maybe
 Maybe :: * -&gt; *</code></pre>
@@ -367,6 +372,14 @@ Maybe :: * -&gt; *</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>&gt; :kind Maybe Int
 Maybe Int :: *</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :kind Num 
+Num :: * -&gt; Constraint</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :kind Monad 
+Monad :: (* -&gt; *) -&gt; Constraint</code></pre>
 </div>
 </section>
 <section id="typeclasses" class="slide level2">
@@ -634,6 +647,55 @@ Nothing</code></pre>
 <pre class="haskell"><code>&gt; (fmap . fmap) (+ 1) (Just [1,2,3]) 
 Just [2,3,4]</code></pre>
 </div>
+</section>
+<section id="applicative" class="slide level2">
+<h2>Applicative</h2>
+<p>Applicatives är monoidal funktors. Funktors låter oss lyfta en funktion över nån extra struktur \(f\). Applicatives låter oss applicera en funktion i \(f\) till ett argument i \(f\) och sedan slå samman dessa två strukturer av \(f\) till ett \(f\).</p>
+<pre class="haskell"><code>class Functor f =&gt; Applicative (f :: * -&gt; *) where
+  pure :: a -&gt; f a
+  (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
+<p>pure låter oss returnera ett värde a i nån struktur \(f\) där \(f\) är en funktor.</br></br> &lt;*&gt; (apply) är operationen som låter oss applicera en funktion i \(f\) till ett argument i \(f\).</p>
+<div class="fragment">
+<pre class="haskell"><code>  fmap  ::   (a -&gt; b) -&gt; f a -&gt; f b
+  (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
+</div>
+</section>
+<section id="monad" class="slide level2">
+<h2>Monad</h2>
+<p>I kategoriteori är monads applicative funktors. I Haskell används ofta monads för att simulera effektfulla beräkningar på ett rent funktionellt sätt. Även kallat <em>monadic computations</em>.</p>
+<pre class="haskell"><code>class Applicative f =&gt; Monad (f :: * -&gt; *) where
+  (&gt;&gt;=) :: f a -&gt; (a -&gt; f b) -&gt; f b</code></pre>
+<pre class="haskell"><code>f :: Int -&gt; Maybe Int
+g :: Int -&gt; Maybe Int
+
+p = f (g 1) -- Kompilerar ej.</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :t fmap f (g 1)
+fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
+</div>
+</section>
+<section id="monad-1" class="slide level2">
+<h2>Monad</h2>
+<pre class="haskell"><code>join :: Monad f =&gt; f (f a) -&gt; f a</code></pre>
+<div class="fragment">
+<p>Operationen (&gt;&gt;=) för monads låter oss applicera en funktion: \(a \rightarrow f\ b\) till ett argument: \(f\ a\)</p>
+<pre class="haskell"><code>(&gt;&gt;=) = join . fmap</code></pre>
+</div>
+</section>
+<section id="exempel-på-monads-i-haskell" class="slide level2">
+<h2>Exempel på Monads i Haskell</h2>
+<ul>
+<li>Maybe</li>
+<li>Either</li>
+<li>Validation</li>
+<li>Reader</li>
+<li>Writer</li>
+<li>State</li>
+</ul>
+</section>
+<section id="live-kod" class="slide level2">
+<h2>Live kod</h2>
+<p><img data-src="images/live-coding.jpg" /></p>
 </section>
     </div>
   </div>
