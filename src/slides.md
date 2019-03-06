@@ -301,7 +301,7 @@ const :: a -> b -> a
 ```{.haskell}
 flip :: (a -> b -> c) -> b -> a -> c
 ```
-"Hole-driven Haskell" är en avancerad teknik där vi använder typer för att låta
+"Hole-driven Haskell" är en teknik där vi använder typade hål för att låta
 kompilatorn guida oss till en korrekt implementation, baserad på bevis.
 
 ## Ad-hoc polymorfism
