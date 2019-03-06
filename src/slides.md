@@ -827,6 +827,7 @@ ett argument: \\(f\\ a\\)
 * Reader
 * Writer
 * State
+* IO
 
 ## Live kod
 ![](images/live-coding.jpg)
