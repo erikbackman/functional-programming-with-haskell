@@ -823,7 +823,6 @@ ett argument: \\(f\\ a\\)
 ## Exempel på Monads i Haskell
 * Maybe 
 * Either 
-* Validation 
 * Reader
 * Writer
 * State
