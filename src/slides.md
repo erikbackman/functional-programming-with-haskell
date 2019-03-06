@@ -154,12 +154,12 @@ reverseSort = reverse . sort
 Med sido-effekter hade komposition ej vart möjligt.
 
 ## Vad är Haskell?
+* Rent, funktionell programmeringsspråk med lat evaluering.
 * Släpptes första gången år 1990.
   * Haskell 1.0 (1990)
   * Haskell 2010 (Senaste)
   * GHC 8.6.3 (December 2018)
   * Fick sitt namn efter den amerikanska logikern Haskell Curry
-* Rent, funktionell programmeringsspråk med lat evaluering.
 * Stark statisk typning med typinferens.
 * Tolkat såväl som kompilerat.
   * GHCi är en REPL där Haskell-kod kan tolkas.
