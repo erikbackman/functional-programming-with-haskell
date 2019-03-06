@@ -675,7 +675,7 @@ fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
 <pre class="haskell"><code>join :: Monad f =&gt; f (f a) -&gt; f a</code></pre>
 <div class="fragment">
 <p>Operationen (&gt;&gt;=) för monads låter oss applicera en funktion: \(a \rightarrow f\ b\) till ett argument: \(f\ a\)</p>
-<pre class="haskell"><code>(&gt;&gt;=) = join . fmap</code></pre>
+<pre class="haskell"><code>fa &gt;&gt;= f = join (fmap f fa)</code></pre>
 </div>
 </section>
 <section id="exempel-på-monads-i-haskell" class="slide level2">
