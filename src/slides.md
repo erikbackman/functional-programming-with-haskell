@@ -810,7 +810,7 @@ Operationen (>>=) för monads låter oss applicera en funktion: \\(a \\rightarro
 ett argument: \\(f\\ a\\)
 
 ```{.haskell}
-(>>=) = join . fmap
+fa >>= f = join (fmap f fa)
 ```
 
 ## Exempel på Monads i Haskell
