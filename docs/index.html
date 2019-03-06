@@ -351,7 +351,7 @@ False || x = x</code></pre>
 </section>
 <section id="kinds" class="slide level2">
 <h2>Kinds</h2>
-<p>Haskell’s kindsystem kan beskrivas som ett typsystem för typer. Kinds ger oss ett sätt att beskriva vilen typ en typ har.</p>
+<p>Haskell’s kindsystem kan beskrivas som ett typsystem för typer. Kinds ger oss ett sätt att beskriva vilken typ en typ har.</p>
 <pre class="haskell"><code>&gt; :kind Int
 Int :: *</code></pre>
 <div class="fragment">
@@ -595,16 +595,12 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 <pre class="haskell"><code>f :: a -&gt; b
 </code></pre>
 <div class="fragment">
-<pre class="haskell"><code>m :: Maybe a
-
-fMaybe :: Maybe a -&gt; Maybe b
+<pre class="haskell"><code>fMaybe :: Maybe a -&gt; Maybe b
 fMaybe Nothing  = Nothing
 fMaybe (Just x) = Just (f x)</code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>l :: [a]
-
-fList :: [a] -&gt; [b] 
+<pre class="haskell"><code>fList :: [a] -&gt; [b] 
 fList []     = []
 fList (x:xs) = f x : fList xs</code></pre>
 </div>
@@ -650,11 +646,11 @@ Just [2,3,4]</code></pre>
 </section>
 <section id="applicative" class="slide level2">
 <h2>Applicative</h2>
-<p>Applicatives är monoidal funktors. Funktors låter oss lyfta en funktion över nån extra struktur \(f\). Applicatives låter oss applicera en funktion i \(f\) till ett argument i \(f\) och sedan slå samman dessa två strukturer av \(f\) till ett \(f\).</p>
+<p>Applicatives är monoidal funktors.</p>
 <pre class="haskell"><code>class Functor f =&gt; Applicative (f :: * -&gt; *) where
   pure :: a -&gt; f a
   (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
-<p>pure låter oss returnera ett värde a i nån struktur \(f\) där \(f\) är en funktor.</br></br> &lt;*&gt; (apply) är operationen som låter oss applicera en funktion i \(f\) till ett argument i \(f\).</p>
+<p>pure returnera ett värde a i nån struktur \(f\) där \(f\) är en funktor.</br></br> &lt;*&gt; (apply) applicerar en funktion i \(f\) till ett argument i \(f\) och slår sedan samman dessa två strukturer.</p>
 <div class="fragment">
 <pre class="haskell"><code>  fmap  ::   (a -&gt; b) -&gt; f a -&gt; f b
   (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>

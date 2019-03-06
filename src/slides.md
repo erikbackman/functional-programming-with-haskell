@@ -411,7 +411,7 @@ fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 ## Kinds
 
 Haskell's kindsystem kan beskrivas som ett typsystem för typer.
-Kinds ger oss ett sätt att beskriva vilen typ en typ har.
+Kinds ger oss ett sätt att beskriva vilken typ en typ har.
 
 ```{.haskell}
 > :kind Int
@@ -685,8 +685,6 @@ f :: a -> b
 . . .
 
 ```{.haskell}
-m :: Maybe a
-
 fMaybe :: Maybe a -> Maybe b
 fMaybe Nothing  = Nothing
 fMaybe (Just x) = Just (f x)
@@ -694,8 +692,6 @@ fMaybe (Just x) = Just (f x)
 . . .
 
 ```{.haskell}
-l :: [a]
-
 fList :: [a] -> [b] 
 fList []     = []
 fList (x:xs) = f x : fList xs
@@ -761,10 +757,7 @@ Just [2,3,4]
 
 ## Applicative
 
-Applicatives är monoidal funktors. Funktors låter oss lyfta en funktion över nån
-extra struktur \\(f\\).
-Applicatives låter oss applicera en funktion i \\(f\\) till ett argument i
-\\(f\\) och sedan slå samman dessa två strukturer av \\(f\\) till ett \\(f\\). 
+Applicatives är monoidal funktors. 
 
 ```{.haskell}
 class Functor f => Applicative (f :: * -> *) where
@@ -772,9 +765,9 @@ class Functor f => Applicative (f :: * -> *) where
   (<*>) :: f (a -> b) -> f a -> f b
 ```
 
-pure låter oss returnera ett värde a i nån struktur \\(f\\) där \\(f\\) är en funktor.</br></br>
-<*> (apply) är operationen som låter oss applicera en funktion i \\(f\\) till
-ett argument i \\(f\\).
+pure returnera ett värde a i nån struktur \\(f\\) där \\(f\\) är en funktor.</br></br>
+<*> (apply) applicerar en funktion i \\(f\\) till ett argument i
+\\(f\\) och slår sedan samman dessa två strukturer.
 
 . . .
 
