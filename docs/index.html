@@ -496,11 +496,10 @@ id
 </section>
 <section id="semigroup-monoid-3" class="slide level2">
 <h2>Semigroup &amp; Monoid</h2>
-<pre class="haskell"><code>instance (Semigroup a, Semigroup b) =&gt; Semigroup (a, b) where
-  (a1, a2) &lt;&gt; (b1, b2) = (a1 &lt;&gt; b1, a2 &lt;&gt; b2)
-
-instance (Monoid a, Monoid b) =&gt; Monoid (a, b) where
-  mempty = (mempty, mempty)</code></pre>
+<pre class="haskell"><code>instance (Monoid a, Monoid b) =&gt; Monoid (a, b) where
+  mempty = (mempty, mempty)
+  
+  (a1, a2) &lt;&gt; (b1, b2) = (a1 &lt;&gt; b1, a2 &lt;&gt; b2)</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>&gt; (&quot;Foo&quot;, &quot;Hello&quot;) &lt;&gt; (&quot;Bar&quot;, &quot;World&quot;)
 (&quot;FooBar&quot;,&quot;HelloWorld&quot;)</code></pre>
@@ -512,10 +511,7 @@ instance (Monoid a, Monoid b) =&gt; Monoid (a, b) where
 </section>
 <section id="semigroup-monoid-4" class="slide level2">
 <h2>Semigroup &amp; Monoid</h2>
-<pre class="haskell"><code>instance (Semigroup b) =&gt; Semigroup (a -&gt; b) where
-  f &lt;&gt; g = \x -&gt; f x &lt;&gt; g x
-
-instance (Monoid b) =&gt; Monoid (a -&gt; b) where
+<pre class="haskell"><code>instance (Monoid b) =&gt; Monoid (a -&gt; b) where
   mempty = \_ -&gt; mempty
   f &lt;&gt; g = \x -&gt; f x &lt;&gt; g x</code></pre>
 <div class="fragment">

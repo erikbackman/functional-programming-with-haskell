@@ -547,11 +547,10 @@ class Semigroup a => Monoid a where
 ## Semigroup & Monoid
 
 ```{.haskell}
-instance (Semigroup a, Semigroup b) => Semigroup (a, b) where
-  (a1, a2) <> (b1, b2) = (a1 <> b1, a2 <> b2)
-
 instance (Monoid a, Monoid b) => Monoid (a, b) where
   mempty = (mempty, mempty)
+  
+  (a1, a2) <> (b1, b2) = (a1 <> b1, a2 <> b2)
 ```
 . . .
 
@@ -569,9 +568,6 @@ instance (Monoid a, Monoid b) => Monoid (a, b) where
 ## Semigroup & Monoid
 
 ```{.haskell}
-instance (Semigroup b) => Semigroup (a -> b) where
-  f <> g = \x -> f x <> g x
-
 instance (Monoid b) => Monoid (a -> b) where
   mempty = \_ -> mempty
   f <> g = \x -> f x <> g x
