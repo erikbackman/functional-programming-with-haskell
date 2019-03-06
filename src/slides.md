@@ -658,7 +658,7 @@ summarize fm = foldr (<>) mempty fm
 ## Functor
 
 Inom kategoriteori är en funktor en tillordning som associerar varje objekt i en
-kategori till ett annant objekt i en annan kategori.
+kategori till ett annat objekt i en annan kategori.
 
 ## Functor
 
