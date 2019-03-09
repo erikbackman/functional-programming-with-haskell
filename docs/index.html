@@ -247,8 +247,7 @@ error:
         Actual type: Char -&gt; Char
     • In the second argument of ‘(.)’, namely ‘toUpper’
       In the expression: exclaim . toUpper
-      In an equation for ‘shout’: shout = exclaim . toUpper
-</code></pre>
+      In an equation for ‘shout’: shout = exclaim . toUpper</code></pre>
 </div>
 </section>
 <section id="högre-ordningens-funktioner-1" class="slide level2">
@@ -586,6 +585,11 @@ sum xs = foldr (+) 0 xs</code></pre>
 <pre class="haskell"><code>summarize :: (Foldable f, Monoid m) =&gt; f m -&gt; m
 summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </div>
+</section>
+<section id="categories-101" class="slide level2">
+<h2>Categories 101</h2>
+<p>En kategori är en algebraisk struktur för att modellera objekt och deras relationer. En kategori <strong>C</strong> består av en samling objekt och pilar mellan objekt.</p>
+<p><img data-src="images/category.jpg" /></p>
 </section>
 <section id="functor" class="slide level2">
 <h2>Functor</h2>

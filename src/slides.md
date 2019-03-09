@@ -252,7 +252,6 @@ error:
     • In the second argument of ‘(.)’, namely ‘toUpper’
       In the expression: exclaim . toUpper
       In an equation for ‘shout’: shout = exclaim . toUpper
-
 ```
 
 ## Högre ordningens funktioner
@@ -672,6 +671,13 @@ instance Semigroup [a] where
 summarize :: (Foldable f, Monoid m) => f m -> m
 summarize fm = foldr (<>) mempty fm
 ```
+
+## Categories 101
+
+En kategori är en algebraisk struktur för att modellera objekt och deras
+relationer. En kategori **C** består av en samling objekt och pilar mellan objekt.
+
+![](images/category.jpg)
 
 ## Functor
 
