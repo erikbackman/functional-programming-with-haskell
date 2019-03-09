@@ -594,6 +594,11 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </section>
 <section id="functor-1" class="slide level2">
 <h2>Functor</h2>
+<p>En functor <strong>F</strong> som transformerar en kategori <strong>A</strong> till sig själv kallas för endofunctor.</p>
+<p><img data-src="images/endofunctor.jpg" /></p>
+</section>
+<section id="functor-2" class="slide level2">
+<h2>Functor</h2>
 <p>Motiverande exempel:</p>
 <pre class="haskell"><code>f :: a -&gt; b
 </code></pre>
@@ -608,7 +613,7 @@ fList []     = []
 fList (x:xs) = f x : fList xs</code></pre>
 </div>
 </section>
-<section id="functor-2" class="slide level2">
+<section id="functor-3" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>class Functor (f :: * -&gt; *) where
   fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
@@ -626,7 +631,7 @@ f :: a -&gt; b</code></pre>
 fmap f :: (Functor f) =&gt; (f a -&gt; f b)</code></pre>
 </div>
 </section>
-<section id="functor-3" class="slide level2">
+<section id="functor-4" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>&gt; fmap (+ 1) (Just 1)
 Just 2</code></pre>

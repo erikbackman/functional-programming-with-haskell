@@ -681,6 +681,12 @@ Inom kategoriteori är en Functor **F** en transformation mellan två kategorier
 ![](images/functor.jpg)
 
 ## Functor
+En functor **F** som transformerar en kategori **A** till sig själv kallas för
+endofunctor.
+
+![](images/endofunctor.jpg)
+
+## Functor
 
 Motiverande exempel:
 ```{.haskell}
