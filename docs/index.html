@@ -592,6 +592,7 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </section>
 <section id="functor-1" class="slide level2">
 <h2>Functor</h2>
+<p>Motiverande exempel:</p>
 <pre class="haskell"><code>f :: a -&gt; b
 </code></pre>
 <div class="fragment">
@@ -650,7 +651,7 @@ Just [2,3,4]</code></pre>
 <pre class="haskell"><code>class Functor f =&gt; Applicative (f :: * -&gt; *) where
   pure :: a -&gt; f a
   (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
-<p>pure returnera ett värde a i nån struktur \(f\) där \(f\) är en funktor.</br></br> &lt;*&gt; (apply) applicerar en funktion i \(f\) till ett argument i \(f\) och slår sedan samman dessa två strukturer.</p>
+<p>pure returnera ett värde a i nån struktur \(f\) där \(f\) är en funktor.</br></br> <code>&lt;*&gt;</code> (apply) applicerar en funktion i \(f\) till ett argument i \(f\) och slår sedan samman dessa två strukturer.</p>
 <div class="fragment">
 <pre class="haskell"><code>  fmap  ::   (a -&gt; b) -&gt; f a -&gt; f b
   (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
@@ -658,13 +659,16 @@ Just [2,3,4]</code></pre>
 </section>
 <section id="monad" class="slide level2">
 <h2>Monad</h2>
-<p>I kategoriteori är monads applicative funktors. I Haskell används ofta monads för att simulera effektfulla beräkningar på ett rent funktionellt sätt. Även kallat <em>monadic computations</em>.</p>
+<p>I Haskell används ofta monads för att simulera effektfulla beräkningar på ett rent funktionellt sätt.</p>
 <pre class="haskell"><code>class Applicative f =&gt; Monad (f :: * -&gt; *) where
-  (&gt;&gt;=) :: f a -&gt; (a -&gt; f b) -&gt; f b</code></pre>
+  return :: a -&gt; f a
+  (&gt;&gt;=)  :: f a -&gt; (a -&gt; f b) -&gt; f b</code></pre>
+<div class="fragment">
 <pre class="haskell"><code>f :: Int -&gt; Maybe Int
 g :: Int -&gt; Maybe Int
 
 p = f (g 1) -- Kompilerar ej.</code></pre>
+</div>
 <div class="fragment">
 <pre class="haskell"><code>&gt; :t fmap f (g 1)
 fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
@@ -674,7 +678,7 @@ fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
 <h2>Monad</h2>
 <pre class="haskell"><code>join :: Monad f =&gt; f (f a) -&gt; f a</code></pre>
 <div class="fragment">
-<p>Operationen (&gt;&gt;=) för monads låter oss applicera en funktion: \(a \rightarrow f\ b\) till ett argument: \(f\ a\)</p>
+<p>Operationen <code>(&gt;&gt;=)</code> för monads låter oss applicera en funktion: \(a \rightarrow f\ b\) till ett argument: \(f\ a\)</p>
 <pre class="haskell"><code>fa &gt;&gt;= f = join (fmap f fa)</code></pre>
 </div>
 </section>

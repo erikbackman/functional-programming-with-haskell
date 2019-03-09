@@ -678,6 +678,7 @@ kategori till ett annat objekt i en annan kategori.
 
 ## Functor
 
+Motiverande exempel:
 ```{.haskell}
 f :: a -> b
 
@@ -766,7 +767,7 @@ class Functor f => Applicative (f :: * -> *) where
 ```
 
 pure returnera ett värde a i nån struktur \\(f\\) där \\(f\\) är en funktor.</br></br>
-<*> (apply) applicerar en funktion i \\(f\\) till ett argument i
+`<*>` (apply) applicerar en funktion i \\(f\\) till ett argument i
 \\(f\\) och slår sedan samman dessa två strukturer.
 
 . . .
@@ -778,14 +779,16 @@ pure returnera ett värde a i nån struktur \\(f\\) där \\(f\\) är en funktor.
 
 ## Monad
 
-I kategoriteori är monads applicative funktors. I Haskell används ofta monads för att
-simulera effektfulla beräkningar på ett rent funktionellt sätt. Även kallat
-_monadic computations_.
+I Haskell används ofta monads för att simulera effektfulla beräkningar på ett
+rent funktionellt sätt.
+
 
 ```{.haskell}
 class Applicative f => Monad (f :: * -> *) where
-  (>>=) :: f a -> (a -> f b) -> f b
+  return :: a -> f a
+  (>>=)  :: f a -> (a -> f b) -> f b
 ```
+. . .
 
 ```{.haskell}
 f :: Int -> Maybe Int
@@ -806,7 +809,7 @@ join :: Monad f => f (f a) -> f a
 ```
 . . .
 
-Operationen (>>=) för monads låter oss applicera en funktion: \\(a \\rightarrow f\\ b\\) till
+Operationen `(>>=)` för monads låter oss applicera en funktion: \\(a \\rightarrow f\\ b\\) till
 ett argument: \\(f\\ a\\)
 
 ```{.haskell}
