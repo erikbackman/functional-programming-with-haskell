@@ -616,6 +616,8 @@ class Foldable (t :: * -> *) where
 ```
 . . .
 
+Folds är strukturella transformationer.
+
 ```{.haskell}
 1 : 2 : 3 : []
 ```
@@ -673,8 +675,10 @@ summarize fm = foldr (<>) mempty fm
 
 ## Functor
 
-Inom kategoriteori är en funktor en tillordning som associerar varje objekt i en
-kategori till ett annat objekt i en annan kategori.
+Inom kategoriteori är en Functor **F** en transformation mellan två kategorier
+**A** och **B**.
+
+![](images/functor.jpg)
 
 ## Functor
 

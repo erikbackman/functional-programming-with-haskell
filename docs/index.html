@@ -542,6 +542,7 @@ id
 <pre class="haskell"><code>class Foldable (t :: * -&gt; *) where
   foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; t a -&gt; b</code></pre>
 <div class="fragment">
+<p>Folds är strukturella transformationer.</p>
 <pre class="haskell"><code>1 : 2 : 3 : []</code></pre>
 </div>
 <div class="fragment">
@@ -588,7 +589,8 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </section>
 <section id="functor" class="slide level2">
 <h2>Functor</h2>
-<p>Inom kategoriteori är en funktor en tillordning som associerar varje objekt i en kategori till ett annat objekt i en annan kategori.</p>
+<p>Inom kategoriteori är en Functor <strong>F</strong> en transformation mellan två kategorier <strong>A</strong> och <strong>B</strong>.</p>
+<p><img data-src="images/functor.jpg" /></p>
 </section>
 <section id="functor-1" class="slide level2">
 <h2>Functor</h2>
