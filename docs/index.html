@@ -155,6 +155,15 @@ reverseSort = reverse . sort</code></pre>
 <p>Med sido-effekter hade komposition ej vart möjligt.</p>
 </div>
 </section>
+<section id="lambdacalculus-101" class="slide level2">
+<h2>Lambdacalculus 101</h2>
+<p>Utvecklades på 1930-talet av den amerikanska matematikern Alonzo Church.</p>
+<pre><code>expr = x | λx.expr | (expr expr)
+
+λx.x
+λx.λy.x
+(λx.x)z</code></pre>
+</section>
 <section id="vad-är-haskell" class="slide level2">
 <h2>Vad är Haskell?</h2>
 <ul>
@@ -234,20 +243,20 @@ Hello World</code></pre>
 <h2>Högre ordningens funktioner</h2>
 <pre class="haskell"><code>(++) :: [a] -&gt; [a] -&gt; [a]</code></pre>
 <div class="fragment">
-<pre class="haskell"><code>exclaim :: String -&gt; String                 -- String är alias för [Char]
-exclaim = (++ &quot;!&quot;)</code></pre>
+<pre class="haskell"><code>sayHello :: String -&gt; String                 -- String är alias för [Char]
+sayHello = (++) &quot;Hello &quot; </code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>shout :: String -&gt; String
-shout = exclaim . toUpper</code></pre>
+<pre class="haskell"><code>shoutHello :: String -&gt; String
+shoutHello = toUpper . sayHello</code></pre>
 <pre class="haskell"><code>&gt; stack build
 error:
-    • Couldn&#39;t match type ‘Char’ with ‘[Char]’
-      Expected type: Char -&gt; [Char]
-        Actual type: Char -&gt; Char
-    • In the second argument of ‘(.)’, namely ‘toUpper’
-      In the expression: exclaim . toUpper
-      In an equation for ‘shout’: shout = exclaim . toUpper</code></pre>
+    • Couldn&#39;t match type ‘[Char]’ with ‘Char’
+      Expected type: [Char] -&gt; Char
+        Actual type: [Char] -&gt; [Char]
+    • In the second argument of ‘(.)’, namely ‘sayHello’
+      In the expression: toUpper . sayHello
+      In an equation for ‘shoutHello’: shoutHello = toUpper . sayHello</code></pre>
 </div>
 </section>
 <section id="högre-ordningens-funktioner-1" class="slide level2">
@@ -258,10 +267,19 @@ toUpper :: Char -&gt; Char</code></pre>
 <pre class="haskell"><code>&gt; :t map toUpper :: [Char] -&gt; [Char]</code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>shout :: String -&gt; String
-shout = exclaim . map toUpper</code></pre>
-<pre class="haskell"><code>&gt; shout &quot;hello&quot; 
-&quot;HELLO!&quot;</code></pre>
+<pre class="haskell"><code>shoutHello :: String -&gt; String
+shoutHello = map toUpper . sayHello </code></pre>
+<pre class="haskell"><code>&gt; shoutHello &quot;Haskell&quot; 
+&quot;HELLO HASKELL&quot;</code></pre>
+</div>
+<div class="fragment">
+<p></br></p>
+<pre class="haskell"><code>&gt; filter (\x -&gt; x &lt;= 5) [1..10]
+[1,2,3,4,5]</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; filter (&lt;= 5) [1..10]
+[1,2,3,4,5]</code></pre>
 </div>
 </section>
 <section id="parametrisk-polymorfism" class="slide level2">

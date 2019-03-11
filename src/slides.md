@@ -153,6 +153,17 @@ reverseSort = reverse . sort
 ```
 Med sido-effekter hade komposition ej vart möjligt.
 
+## Lambdacalculus 101
+Utvecklades på 1930-talet av den amerikanska matematikern Alonzo Church.
+
+```
+expr = x | λx.expr | (expr expr)
+
+λx.x
+λx.λy.x
+(λx.x)z
+```
+
 ## Vad är Haskell?
 * Rent, funktionell programmeringsspråk med lat evaluering.
 * Släpptes första gången år 1990.
@@ -233,25 +244,26 @@ Hello World
 ```
 . . .
 ```{.haskell}
-exclaim :: String -> String                 -- String är alias för [Char]
-exclaim = (++ "!")
+sayHello :: String -> String                 -- String är alias för [Char]
+sayHello = (++) "Hello " 
 ```
+. . .
 
 . . .
 ```{.haskell}
-shout :: String -> String
-shout = exclaim . toUpper
+shoutHello :: String -> String
+shoutHello = toUpper . sayHello
 ```
 
 ```{.haskell}
 > stack build
 error:
-    • Couldn't match type ‘Char’ with ‘[Char]’
-      Expected type: Char -> [Char]
-        Actual type: Char -> Char
-    • In the second argument of ‘(.)’, namely ‘toUpper’
-      In the expression: exclaim . toUpper
-      In an equation for ‘shout’: shout = exclaim . toUpper
+    • Couldn't match type ‘[Char]’ with ‘Char’
+      Expected type: [Char] -> Char
+        Actual type: [Char] -> [Char]
+    • In the second argument of ‘(.)’, namely ‘sayHello’
+      In the expression: toUpper . sayHello
+      In an equation for ‘shoutHello’: shoutHello = toUpper . sayHello
 ```
 
 ## Högre ordningens funktioner
@@ -268,13 +280,28 @@ toUpper :: Char -> Char
 
 
 ```{.haskell}
-shout :: String -> String
-shout = exclaim . map toUpper
+shoutHello :: String -> String
+shoutHello = map toUpper . sayHello 
 ```
 
 ```{.haskell}
-> shout "hello" 
-"HELLO!"
+> shoutHello "Haskell" 
+"HELLO HASKELL"
+```
+
+. . .
+
+</br>
+```{.haskell}
+> filter (\x -> x <= 5) [1..10]
+[1,2,3,4,5]
+```
+
+. . .
+
+```{.haskell}
+> filter (<= 5) [1..10]
+[1,2,3,4,5]
 ```
 
 ## Parametrisk polymorfism
