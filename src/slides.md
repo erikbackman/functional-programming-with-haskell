@@ -153,7 +153,7 @@ reverseSort = reverse . sort
 ```
 Med sido-effekter hade komposition ej vart möjligt.
 
-## Lambdacalculus 101
+## Lambda calculus 101
 Utvecklades på 1930-talet av den amerikanska matematikern Alonzo Church.
 
 ```
