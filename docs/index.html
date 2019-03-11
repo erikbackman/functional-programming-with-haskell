@@ -277,10 +277,6 @@ shoutHello = map toUpper . sayHello </code></pre>
 <pre class="haskell"><code>&gt; filter (\x -&gt; x &lt;= 5) [1..10]
 [1,2,3,4,5]</code></pre>
 </div>
-<div class="fragment">
-<pre class="haskell"><code>&gt; filter (&lt;= 5) [1..10]
-[1,2,3,4,5]</code></pre>
-</div>
 </section>
 <section id="parametrisk-polymorfism" class="slide level2">
 <h2>Parametrisk polymorfism</h2>
@@ -621,9 +617,19 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </section>
 <section id="functor-2" class="slide level2">
 <h2>Functor</h2>
-<p>Motiverande exempel:</p>
-<pre class="haskell"><code>f :: a -&gt; b
-</code></pre>
+<p><strong>F</strong> : En typkonstruktor <code>* -&gt; *</code> </br> <strong>A</strong> : En Haskell-typ</p>
+<div class="fragment">
+<p><strong>F</strong> : Maybe </br> <strong>A</strong> : Int</p>
+<pre class="haskell"><code>fa = Just 1 </code></pre>
+</div>
+<div class="fragment">
+<p><strong>F</strong> : [] </br> <strong>A</strong> : Int</p>
+<pre class="haskell"><code>fa = [1] </code></pre>
+</div>
+</section>
+<section id="functor-3" class="slide level2">
+<h2>Functor</h2>
+<pre class="haskell"><code>f :: a -&gt; b</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>fMaybe :: Maybe a -&gt; Maybe b
 fMaybe Nothing  = Nothing
@@ -635,7 +641,7 @@ fList []     = []
 fList (x:xs) = f x : fList xs</code></pre>
 </div>
 </section>
-<section id="functor-3" class="slide level2">
+<section id="functor-4" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>class Functor (f :: * -&gt; *) where
   fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
@@ -653,7 +659,7 @@ f :: a -&gt; b</code></pre>
 fmap f :: (Functor f) =&gt; (f a -&gt; f b)</code></pre>
 </div>
 </section>
-<section id="functor-4" class="slide level2">
+<section id="functor-5" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>&gt; fmap (+ 1) (Just 1)
 Just 2</code></pre>

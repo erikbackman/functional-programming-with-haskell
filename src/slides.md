@@ -297,13 +297,6 @@ shoutHello = map toUpper . sayHello
 [1,2,3,4,5]
 ```
 
-. . .
-
-```{.haskell}
-> filter (<= 5) [1..10]
-[1,2,3,4,5]
-```
-
 ## Parametrisk polymorfism
 
 Typer säger mycket om vad en funktion gör. De kan också guida oss till en korrekt implementation.
@@ -721,10 +714,28 @@ endofunctor.
 
 ## Functor
 
-Motiverande exempel:
+**F** : En typkonstruktor `* -> *` </br>
+**A** : En Haskell-typ
+
+. . .
+
+**F** : Maybe </br>
+**A** : Int
+```{.haskell}
+fa = Just 1 
+```
+. . .
+
+**F** : [] </br>
+**A** : Int
+```{.haskell}
+fa = [1] 
+```
+
+## Functor
+
 ```{.haskell}
 f :: a -> b
-
 ```
 . . .
 
