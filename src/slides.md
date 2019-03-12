@@ -715,19 +715,19 @@ endofunctor.
 ## Functor
 
 **F** : En typkonstruktor `* -> *` </br>
-**A** : En Haskell-typ
+**A** : Kategorin Haskell vars objekt är typer och funktioner i Haskell.
 
 . . .
 
-**F** : Maybe </br>
-**A** : Int
+**F(a)** : Maybe Int </br>
+
 ```{.haskell}
 fa = Just 1 
 ```
 . . .
 
-**F** : [] </br>
-**A** : Int
+**F(a)** : [Int] </br>
+
 ```{.haskell}
 fa = [1] 
 ```
@@ -772,6 +772,8 @@ instance Functor Maybe where
 f :: a -> b
 ```
 . . .
+
+**F(f)** : Maybe (a -> b)
 
 ```{.haskell}
 > :type fmap f
