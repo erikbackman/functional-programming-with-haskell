@@ -299,7 +299,11 @@ shoutHello = map toUpper . sayHello
 
 ## Parametrisk polymorfism
 
-Typer säger mycket om vad en funktion gör. De kan också guida oss till en korrekt implementation.
+> “Write down the definition of a polymorphic function on a piece of paper.
+> Tell me its type, but be careful not to let me see the function’s definition.
+> I will tell you a theorem that the function satisfies.”
+
+## Parametrisk polymorfism
 
 ```{.haskell}
 map :: (a -> b) -> [a] -> [b]
@@ -308,7 +312,7 @@ map f as = ...
 . . .
 
 ```{.haskell}
-id :: a -> a                -- id :: forall a. a -> a
+id :: a -> a 
 ```
 . . .
 
@@ -318,10 +322,13 @@ const :: a -> b -> a
 . . .
 
 ```{.haskell}
+fst :: (a, b) -> a 
+```
+. . .
+
+```{.haskell}
 flip :: (a -> b -> c) -> b -> a -> c
 ```
-"Hole-driven Haskell" är en teknik där vi använder typade hål för att låta
-kompilatorn guida oss till en korrekt implementation, baserad på bevis.
 
 ## Ad-hoc polymorfism
 

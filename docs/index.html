@@ -280,18 +280,25 @@ shoutHello = map toUpper . sayHello </code></pre>
 </section>
 <section id="parametrisk-polymorfism" class="slide level2">
 <h2>Parametrisk polymorfism</h2>
-<p>Typer säger mycket om vad en funktion gör. De kan också guida oss till en korrekt implementation.</p>
+<blockquote>
+<p>“Write down the definition of a polymorphic function on a piece of paper. Tell me its type, but be careful not to let me see the function’s definition. I will tell you a theorem that the function satisfies.”</p>
+</blockquote>
+</section>
+<section id="parametrisk-polymorfism-1" class="slide level2">
+<h2>Parametrisk polymorfism</h2>
 <pre class="haskell"><code>map :: (a -&gt; b) -&gt; [a] -&gt; [b]
 map f as = ...</code></pre>
 <div class="fragment">
-<pre class="haskell"><code>id :: a -&gt; a                -- id :: forall a. a -&gt; a</code></pre>
+<pre class="haskell"><code>id :: a -&gt; a </code></pre>
 </div>
 <div class="fragment">
 <pre class="haskell"><code>const :: a -&gt; b -&gt; a</code></pre>
 </div>
 <div class="fragment">
+<pre class="haskell"><code>fst :: (a, b) -&gt; a </code></pre>
+</div>
+<div class="fragment">
 <pre class="haskell"><code>flip :: (a -&gt; b -&gt; c) -&gt; b -&gt; a -&gt; c</code></pre>
-<p>“Hole-driven Haskell” är en teknik där vi använder typade hål för att låta kompilatorn guida oss till en korrekt implementation, baserad på bevis.</p>
 </div>
 </section>
 <section id="ad-hoc-polymorfism" class="slide level2">
