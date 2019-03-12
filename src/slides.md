@@ -719,14 +719,10 @@ endofunctor.
 
 . . .
 
-**F(a)** : Maybe Int </br>
-
 ```{.haskell}
 fa = Just 1 
 ```
 . . .
-
-**F(a)** : [Int] </br>
 
 ```{.haskell}
 fa = [1] 
@@ -772,8 +768,6 @@ instance Functor Maybe where
 f :: a -> b
 ```
 . . .
-
-**F(f)** : Maybe (a -> b)
 
 ```{.haskell}
 > :type fmap f

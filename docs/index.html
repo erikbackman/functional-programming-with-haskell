@@ -619,11 +619,9 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 <h2>Functor</h2>
 <p><strong>F</strong> : En typkonstruktor <code>* -&gt; *</code> </br> <strong>A</strong> : Kategorin Haskell vars objekt är typer och funktioner i Haskell.</p>
 <div class="fragment">
-<p><strong>F(a)</strong> : Maybe Int </br></p>
 <pre class="haskell"><code>fa = Just 1 </code></pre>
 </div>
 <div class="fragment">
-<p><strong>F(a)</strong> : [Int] </br></p>
 <pre class="haskell"><code>fa = [1] </code></pre>
 </div>
 </section>
@@ -655,7 +653,6 @@ fList (x:xs) = f x : fList xs</code></pre>
 f :: a -&gt; b</code></pre>
 </div>
 <div class="fragment">
-<p><strong>F(f)</strong> : Maybe (a -&gt; b)</p>
 <pre class="haskell"><code>&gt; :type fmap f
 fmap f :: (Functor f) =&gt; (f a -&gt; f b)</code></pre>
 </div>
