@@ -524,7 +524,7 @@ En monoid är en semigroup med ett identitetselement.
 
 ```{.haskell}
 class Semigroup a => Monoid a where
-  mempty :: a
+  mempty  :: a
   mappend :: a -> a -> a
 ```
 
@@ -589,7 +589,7 @@ class Semigroup a => Monoid a where
 instance (Monoid a, Monoid b) => Monoid (a, b) where
   mempty = (mempty, mempty)
   
-  (a1, a2) <> (b1, b2) = (a1 <> b1, a2 <> b2)
+  mappend (a1, a2) (b1, b2) = (mappend a1 b1, mappend a2 b2)
 ```
 . . .
 
@@ -609,7 +609,8 @@ instance (Monoid a, Monoid b) => Monoid (a, b) where
 ```{.haskell}
 instance (Monoid b) => Monoid (a -> b) where
   mempty = \_ -> mempty
-  f <> g = \x -> f x <> g x
+  
+  mappend f g = \x -> mappend (f x) (g x)
 ```
 . . .
 

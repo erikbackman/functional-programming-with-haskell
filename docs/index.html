@@ -432,7 +432,7 @@ product (x:xs) = x * product xs
 <h2>Semigroup &amp; Monoid</h2>
 <p>En monoid är en semigroup med ett identitetselement.</p>
 <pre class="haskell"><code>class Semigroup a =&gt; Monoid a where
-  mempty :: a
+  mempty  :: a
   mappend :: a -&gt; a -&gt; a</code></pre>
 <table style="width:100%">
 <th colspan="3">
@@ -525,7 +525,7 @@ id
 <pre class="haskell"><code>instance (Monoid a, Monoid b) =&gt; Monoid (a, b) where
   mempty = (mempty, mempty)
   
-  (a1, a2) &lt;&gt; (b1, b2) = (a1 &lt;&gt; b1, a2 &lt;&gt; b2)</code></pre>
+  mappend (a1, a2) (b1, b2) = (mappend a1 b1, mappend a2 b2)</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>&gt; (&quot;Foo&quot;, &quot;Hello&quot;) &lt;&gt; (&quot;Bar&quot;, &quot;World&quot;)
 (&quot;FooBar&quot;,&quot;HelloWorld&quot;)</code></pre>
@@ -539,7 +539,8 @@ id
 <h2>Semigroup &amp; Monoid</h2>
 <pre class="haskell"><code>instance (Monoid b) =&gt; Monoid (a -&gt; b) where
   mempty = \_ -&gt; mempty
-  f &lt;&gt; g = \x -&gt; f x &lt;&gt; g x</code></pre>
+  
+  mappend f g = \x -&gt; mappend (f x) (g x)</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>&gt; (id &lt;&gt; reverse) [1,2,3] 
 [1,2,3,3,2,1]</code></pre>
