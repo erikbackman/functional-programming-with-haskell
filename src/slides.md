@@ -718,7 +718,7 @@ Inom kategoriteori är en Functor **F** en transformation mellan två kategorier
 En functor **F** som transformerar en kategori **A** till sig själv kallas för
 endofunctor.
 
-![](images/endofunctor.jpg)
+<img src="images/endofunctor.jpg" height="500" />
 
 ## Functor
 
