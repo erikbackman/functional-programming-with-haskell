@@ -2,7 +2,7 @@
 title: Funktionell Programmering
 subtitle: med Haskell
 author: Erik Bäckman
-date: April 2019
+date: Maj 2019
 ---
 
 ## Agenda
@@ -170,7 +170,6 @@ expr = x | λx.expr | (expr expr)
   * Haskell 1.0 (1990)
   * Haskell 2010 (Senaste)
   * GHC 8.6.3 (December 2018)
-  * Fick sitt namn efter den amerikanska logikern Haskell Curry
 * Stark statisk typning med typinferens.
 * Tolkat såväl som kompilerat.
   * GHCi är en REPL där Haskell-kod kan tolkas.
@@ -178,33 +177,7 @@ expr = x | λx.expr | (expr expr)
     * GHC-Core är en typad lambdacalculus kallad System FC
   * GHC-Core kompileras till maskinkod.
 * Utbyggbart per design.
-* Ledande inom programmeringsspråk-utveckling.
 
-## Komma igång 
-[http://www.haskell.org/downloads](http://www.haskell.org/downloads)
-
-* **Haskell Stack**
-* Haskell Platform
-* GHC
-
-## Böcker
-
-```{=html}
-<div class="row">
-  <div class="column">
-    <img src="images/haskellbook.png" width="250" />
-  </div>
-  <div class="column">
-    <img src="images/pih.jpg" width="250" />
-  </div>
-  <div class="column">
-    <img src="images/learnyouahaskell.jpg" width="250" />
-  </div>
-  <div class="column">
-    <img src="images/twt.png" width="250" />
-  </div>
-</div>
-```
 
 ## Ren Funktionell Programmering <br/> med haskell
 ![](images/haskell_logo2.svg)
@@ -881,6 +854,29 @@ fa >>= f = join (fmap f fa)
 * Writer
 * State
 * IO
+
+## Komma igång 
+[http://www.haskell.org/downloads](http://www.haskell.org/downloads)
+
+* **Haskell Stack**
+* Haskell Platform
+* GHC
+
+## Böcker
+
+```{=html}
+<div class="row">
+  <div class="column">
+    <img src="images/haskellbook.png" width="250" />
+  </div>
+  <div class="column">
+    <img src="images/pih.jpg" width="250" />
+  </div>
+  <div class="column">
+    <img src="images/learnyouahaskell.jpg" width="250" />
+  </div>
+</div>
+```
 
 ## Live kod
 ![](images/live-coding.jpg)
