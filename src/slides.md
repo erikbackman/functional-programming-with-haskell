@@ -67,22 +67,22 @@ Dubbelriktad substitution är alltid möjligt eftersom Haskell är rent.</br>
 Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 ## Imperativa program kan vara svåra att resonera om
-
+. . .
 ```{.c}
-int c = 1;
+int method(int arg) {...}
 
-int addOne(int x) {
-  return x + c;
+int program(int arg) {
+  return (method(arg), method(arg));
 }
+```
+. . .
+```{.c}
+int method(int arg) {...}
 
-int addTwo(int x) {
-  c++;
-  return x + c;
+int program(int arg) {
+  int result = method(arg);
+  return (result, result);
 }
-
-addOne(1); // 2
-addTwo(2); // 4
-addTwo(3); // 6
 ```
 Rena funktionella språk som Haskell saknar tilldelningssatser.
 

@@ -96,21 +96,20 @@ p = square 2</code></pre>
 </section>
 <section id="imperativa-program-kan-vara-svåra-att-resonera-om" class="slide level2">
 <h2>Imperativa program kan vara svåra att resonera om</h2>
-<pre class="c"><code>int c = 1;
+<pre class="c"><code>int method(int arg) {...}
 
-int addOne(int x) {
-  return x + c;
-}
+int program(int arg) {
+  return (method(arg), method(arg));
+}</code></pre>
+<div class="fragment">
+<pre class="c"><code>int method(int arg) {...}
 
-int addTwo(int x) {
-  c++;
-  return x + c;
-}
-
-addOne(1); // 2
-addTwo(2); // 4
-addTwo(3); // 6</code></pre>
+int program(int arg) {
+  int result = method(arg);
+  return (result, result);
+}</code></pre>
 <p>Rena funktionella språk som Haskell saknar tilldelningssatser.</p>
+</div>
 </section>
 <section id="refaktorering" class="slide level2">
 <h2>Refaktorering</h2>
@@ -191,7 +190,7 @@ reverseSort = reverse . sort</code></pre>
 </section>
 <section id="komma-igång" class="slide level2">
 <h2>Komma igång</h2>
-<p><a href="http://www.haskell.org/downloads" class="uri">http://www.haskell.org/downloads</a></p>
+<p><a href="http://www.haskell.org/downloads">http://www.haskell.org/downloads</a></p>
 <ul>
 <li><strong>Haskell Stack</strong></li>
 <li>Haskell Platform</li>
@@ -497,7 +496,7 @@ String
 ++
 </td>
 <td>
-&quot;&quot;
+""
 </td>
 </tr>
 <tr>
@@ -758,7 +757,7 @@ fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
         // Transition speed
         transitionSpeed: 'fast', // default/fast/slow
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
