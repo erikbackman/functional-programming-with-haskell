@@ -68,6 +68,7 @@ Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 ## Imperativa program kan vara svåra att resonera om
 . . .
+
 ```{.c}
 int method(int arg) {...}
 
@@ -76,6 +77,7 @@ int program(int arg) {
 }
 ```
 . . .
+
 ```{.c}
 int method(int arg) {...}
 
