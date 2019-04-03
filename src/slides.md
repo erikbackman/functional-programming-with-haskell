@@ -48,7 +48,6 @@ p = square 2
 ## Referenstransparens
 
 Likhet innebär att vi kan byta ut square x för x * x och vice versa.
-Detta kallas ofta för _referenstransparens_.
 
 ```{.haskell}
 square x = x * x
@@ -63,7 +62,9 @@ p = 2 * 2
 ```{.haskell}
 p = 4
 ```
-Dubbelriktad substitution är alltid möjligt eftersom Haskell är rent.</br>
+. . .
+
+Detta kallas för _referenstransparens_.
 Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 ## Imperativa program kan vara svåra att resonera om
@@ -86,53 +87,14 @@ int program(int arg) {
   return (result + result);
 }
 ```
-Rena funktionella språk som Haskell saknar tilldelningssatser.
 
 ## Refaktorering
 Eftersom vi inte behöver ta hänsyn till sidoeffekter kan vi alltid simplifiera
 ett program utan att dess egenskaper förändras.
 
-```{.haskell}
-p = f x + f y * (f x - f x)
-```
-. . . 
-
-```{.haskell}
-p = f x + f y * 0
-```
-
-. . . 
-
-```{.haskell}
-p = f x + 0
-```
-
-. . . 
-
-```{.haskell}
-p = f x
-```
-
 ## Ekvationella resonemang
 Funktionell programmering och referenstransparens möjliggör för ekvationella
 resonemang om ett programs egenskaper.
-
-```{.haskell}
-reverse :: [a] -> [a]
-reverse []     = []
-reverse (x:xs) = reverse xs ++ [x]
-```
-. . . 
-
-Vi kan bevisa att: \\(\\forall x. reverse [x] = [x]\\)
-
-```{.haskell}
-reverse [x]
-reverse (x: [])
-reverse [] ++ [x]
-[] ++ [x]
-[x]
-```
 
 ## Komposition
 
@@ -153,6 +115,7 @@ reverseSort = reverse . sort
 > reverseSort [4,1,2] -- reverse (sort [4,1,2])
 [4,2,1]
 ```
+
 Med sido-effekter hade komposition ej vart möjligt.
 
 ## Vad är Haskell?
