@@ -72,7 +72,7 @@ Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 int method(int arg) {...}
 
 int program(int arg) {
-  return (method(arg), method(arg));
+  return (method(arg) + method(arg));
 }
 ```
 . . .
@@ -81,7 +81,7 @@ int method(int arg) {...}
 
 int program(int arg) {
   int result = method(arg);
-  return (result, result);
+  return (result + result);
 }
 ```
 Rena funktionella språk som Haskell saknar tilldelningssatser.
