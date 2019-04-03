@@ -153,17 +153,6 @@ reverseSort = reverse . sort
 ```
 Med sido-effekter hade komposition ej vart möjligt.
 
-## Lambda calculus 101
-Utvecklades på 1930-talet av den amerikanska matematikern Alonzo Church.
-
-```
-expr = x | λx.expr | (expr expr)
-
-λx.x
-λx.λy.x
-(λx.x)z
-```
-
 ## Vad är Haskell?
 * Rent, funktionell programmeringsspråk med lat evaluering.
 * Släpptes första gången år 1990.
