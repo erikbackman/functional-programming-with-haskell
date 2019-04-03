@@ -633,8 +633,27 @@ endofunctor.
 
 ## Functor
 
-**F** : En typkonstruktor `* -> *` </br>
-**A** : Kategorin Haskell vars objekt är typer och funktioner i Haskell.
+```{.haskell}
+g :: a -> b
+```
+. . .
+
+```{.haskell}
+gMaybe :: Maybe a -> Maybe b
+gMaybe Nothing  = Nothing
+gMaybe (Just x) = Just (g x)
+```
+. . .
+
+```{.haskell}
+gList :: [a] -> [b] 
+gList []     = []
+gList (x:xs) = g x : fList xs
+```
+
+## Functors i Haskell
+
+En typkonstruktor `* -> *` i kategorin Haskell vars objekt är typer och funktioner i Haskell.
 
 . . .
 
@@ -646,34 +665,14 @@ fa = Just 1
 ```{.haskell}
 fa = [1] 
 ```
-
-## Functor
-
-```{.haskell}
-f :: a -> b
-```
 . . .
-
-```{.haskell}
-fMaybe :: Maybe a -> Maybe b
-fMaybe Nothing  = Nothing
-fMaybe (Just x) = Just (f x)
-```
-. . .
-
-```{.haskell}
-fList :: [a] -> [b] 
-fList []     = []
-fList (x:xs) = f x : fList xs
-```
-
-## Functor
 
 ```{.haskell}
 class Functor (f :: * -> *) where
   fmap :: (a -> b) -> f a -> f b
 ```
-. . .
+
+## Functor
 
 ```{.haskell}
 instance Functor Maybe where
@@ -683,14 +682,14 @@ instance Functor Maybe where
 . . .
 
 ```{.haskell}
-> :type f
-f :: a -> b
+> :type g
+g :: a -> b
 ```
 . . .
 
 ```{.haskell}
-> :type fmap f
-fmap f :: (Functor f) => (f a -> f b)
+> :type fmap g 
+fmap g :: (Functor f) => (f a -> f b)
 ```
 
 

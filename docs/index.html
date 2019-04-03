@@ -544,9 +544,9 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 <p>En functor <strong>F</strong> som transformerar en kategori <strong>A</strong> till sig själv kallas för endofunctor.</p>
 <p><img src="images/endofunctor.jpg" height="500" /></p>
 </section>
-<section id="functor-2" class="slide level2">
-<h2>Functor</h2>
-<p><strong>F</strong> : En typkonstruktor <code>* -&gt; *</code> </br> <strong>A</strong> : Kategorin Haskell vars objekt är typer och funktioner i Haskell.</p>
+<section id="functors-i-haskell" class="slide level2">
+<h2>Functors i Haskell</h2>
+<p>En typkonstruktor <code>* -&gt; *</code> i kategorin Haskell vars objekt är typer och funktioner i Haskell.</p>
 <div class="fragment">
 <pre class="haskell"><code>fa = Just 1 </code></pre>
 </div>
@@ -554,7 +554,7 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 <pre class="haskell"><code>fa = [1] </code></pre>
 </div>
 </section>
-<section id="functor-3" class="slide level2">
+<section id="functor-2" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>f :: a -&gt; b</code></pre>
 <div class="fragment">
@@ -568,7 +568,7 @@ fList []     = []
 fList (x:xs) = f x : fList xs</code></pre>
 </div>
 </section>
-<section id="functor-4" class="slide level2">
+<section id="functor-3" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>class Functor (f :: * -&gt; *) where
   fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
@@ -586,7 +586,7 @@ f :: a -&gt; b</code></pre>
 fmap f :: (Functor f) =&gt; (f a -&gt; f b)</code></pre>
 </div>
 </section>
-<section id="functor-5" class="slide level2">
+<section id="functor-4" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>&gt; fmap (+ 1) (Just 1)
 Just 2</code></pre>
