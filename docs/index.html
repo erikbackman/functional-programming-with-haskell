@@ -41,7 +41,7 @@
   <h1 class="title">Funktionell Programmering</h1>
   <p class="subtitle">med Haskell</p>
   <p class="author">Erik Bäckman</p>
-  <p class="date">April 2019</p>
+  <p class="date">Maj 2019</p>
 </section>
 
 <section id="agenda" class="slide level2">
@@ -96,17 +96,19 @@ p = square 2</code></pre>
 </section>
 <section id="imperativa-program-kan-vara-svåra-att-resonera-om" class="slide level2">
 <h2>Imperativa program kan vara svåra att resonera om</h2>
+<div class="fragment">
 <pre class="c"><code>int method(int arg) {...}
 
 int program(int arg) {
-  return (method(arg), method(arg));
+  return (method(arg) + method(arg));
 }</code></pre>
+</div>
 <div class="fragment">
 <pre class="c"><code>int method(int arg) {...}
 
 int program(int arg) {
   int result = method(arg);
-  return (result, result);
+  return (result + result);
 }</code></pre>
 <p>Rena funktionella språk som Haskell saknar tilldelningssatser.</p>
 </div>
@@ -154,15 +156,6 @@ reverseSort = reverse . sort</code></pre>
 <p>Med sido-effekter hade komposition ej vart möjligt.</p>
 </div>
 </section>
-<section id="lambda-calculus-101" class="slide level2">
-<h2>Lambda calculus 101</h2>
-<p>Utvecklades på 1930-talet av den amerikanska matematikern Alonzo Church.</p>
-<pre><code>expr = x | λx.expr | (expr expr)
-
-λx.x
-λx.λy.x
-(λx.x)z</code></pre>
-</section>
 <section id="vad-är-haskell" class="slide level2">
 <h2>Vad är Haskell?</h2>
 <ul>
@@ -172,7 +165,6 @@ reverseSort = reverse . sort</code></pre>
 <li>Haskell 1.0 (1990)</li>
 <li>Haskell 2010 (Senaste)</li>
 <li>GHC 8.6.3 (December 2018)</li>
-<li>Fick sitt namn efter den amerikanska logikern Haskell Curry</li>
 </ul></li>
 <li>Stark statisk typning med typinferens.</li>
 <li>Tolkat såväl som kompilerat.
@@ -185,34 +177,7 @@ reverseSort = reverse . sort</code></pre>
 <li>GHC-Core kompileras till maskinkod.</li>
 </ul></li>
 <li>Utbyggbart per design.</li>
-<li>Ledande inom programmeringsspråk-utveckling.</li>
 </ul>
-</section>
-<section id="komma-igång" class="slide level2">
-<h2>Komma igång</h2>
-<p><a href="http://www.haskell.org/downloads">http://www.haskell.org/downloads</a></p>
-<ul>
-<li><strong>Haskell Stack</strong></li>
-<li>Haskell Platform</li>
-<li>GHC</li>
-</ul>
-</section>
-<section id="böcker" class="slide level2">
-<h2>Böcker</h2>
-<div class="row">
-  <div class="column">
-    <img src="images/haskellbook.png" width="250" />
-  </div>
-  <div class="column">
-    <img src="images/pih.jpg" width="250" />
-  </div>
-  <div class="column">
-    <img src="images/learnyouahaskell.jpg" width="250" />
-  </div>
-  <div class="column">
-    <img src="images/twt.png" width="250" />
-  </div>
-</div>
 </section>
 <section id="ren-funktionell-programmering-med-haskell" class="slide level2">
 <h2>Ren Funktionell Programmering <br/> med haskell</h2>
@@ -279,12 +244,6 @@ shoutHello = map toUpper . sayHello </code></pre>
 </section>
 <section id="parametrisk-polymorfism" class="slide level2">
 <h2>Parametrisk polymorfism</h2>
-<blockquote>
-<p>“Write down the definition of a polymorphic function on a piece of paper. Tell me its type, but be careful not to let me see the function’s definition. I will tell you a theorem that the function satisfies.”</p>
-</blockquote>
-</section>
-<section id="parametrisk-polymorfism-1" class="slide level2">
-<h2>Parametrisk polymorfism</h2>
 <pre class="haskell"><code>map :: (a -&gt; b) -&gt; [a] -&gt; [b]
 map f as = ...</code></pre>
 <div class="fragment">
@@ -338,17 +297,6 @@ length (head:tail) = 1 + length tail</code></pre>
 </section>
 <section id="lat-evaluering" class="slide level2">
 <h2>Lat evaluering</h2>
-<pre class="haskell"><code>if length xs == 0 || length ys == 0
-then ...
-else ...</code></pre>
-<div class="fragment">
-<pre class="haskell"><code>(||) :: Bool -&gt; Bool -&gt; Bool
-True  || _ = True
-False || x = x</code></pre>
-</div>
-</section>
-<section id="lat-evaluering-1" class="slide level2">
-<h2>Lat evaluering</h2>
 <pre class="haskell"><code>&gt; take 5 [1..]
 [1,2,3,4,5]</code></pre>
 <div class="fragment">
@@ -391,14 +339,6 @@ Maybe :: * -&gt; *</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>&gt; :kind Maybe Int
 Maybe Int :: *</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>&gt; :kind Num 
-Num :: * -&gt; Constraint</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>&gt; :kind Monad 
-Monad :: (* -&gt; *) -&gt; Constraint</code></pre>
 </div>
 </section>
 <section id="typeclasses" class="slide level2">
@@ -522,7 +462,7 @@ id
 </code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>&gt; mappend [1,2,3] [4,5,6]
+<pre class="haskell"><code>&gt; [1,2,3] &lt;&gt; [4,5,6]
 [1,2,3,4,5,6]</code></pre>
 </div>
 </section>
@@ -574,30 +514,12 @@ id
 </section>
 <section id="foldable-1" class="slide level2">
 <h2>Foldable</h2>
-<pre class="haskell"><code>sum :: Num a =&gt; [a] -&gt; a
-sum []     = <mark class="inline">0</mark>
-sum (x:xs) = x <mark class="inline">+</mark> sum xs
-
-product :: Num a =&gt; [a] -&gt; a
-product []     = <mark class="inline">1</mark>
-product (x:xs) = x <mark class="inline">*</mark> product xs</code></pre>
-<div class="fragment">
-<pre class="haskell"><code>sum :: Num a =&gt; [a] -&gt; a
-sum xs = foldr (+) 0 xs
-
-product :: Num a =&gt; [a] -&gt; a
-product xs = foldr (*) 1 xs</code></pre>
-</div>
-<div class="fragment">
 <pre class="haskell"><code>sum :: (Foldable t, Num a) =&gt; t a -&gt; a
 sum xs = foldr (+) 0 xs</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>product :: (Foldable t, Num a) =&gt; t a -&gt; a
+product xs = foldr (*) 1 xs</code></pre>
 </div>
-</section>
-<section id="foldable-2" class="slide level2">
-<h2>Foldable</h2>
-<pre class="haskell"><code>instance Semigroup [a] where
-  []     &lt;&gt; ys = ys
-  (x:xs) &lt;&gt; ys = x : (xs &lt;&gt; ys)</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>instance Semigroup [a] where
   xs &lt;&gt; ys = foldr (:) ys xs</code></pre>
@@ -732,6 +654,29 @@ fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
 <li>State</li>
 <li>IO</li>
 </ul>
+</section>
+<section id="komma-igång" class="slide level2">
+<h2>Komma igång</h2>
+<p><a href="http://www.haskell.org/downloads">http://www.haskell.org/downloads</a></p>
+<ul>
+<li><strong>Haskell Stack</strong></li>
+<li>Haskell Platform</li>
+<li>GHC</li>
+</ul>
+</section>
+<section id="böcker" class="slide level2">
+<h2>Böcker</h2>
+<div class="row">
+  <div class="column">
+    <img src="images/haskellbook.png" width="250" />
+  </div>
+  <div class="column">
+    <img src="images/pih.jpg" width="250" />
+  </div>
+  <div class="column">
+    <img src="images/learnyouahaskell.jpg" width="250" />
+  </div>
+</div>
 </section>
 <section id="live-kod" class="slide level2">
 <h2>Live kod</h2>

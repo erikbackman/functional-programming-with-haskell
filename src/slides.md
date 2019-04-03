@@ -588,30 +588,15 @@ Folds är strukturella transformationer.
 
 ## Foldable
 
-```{.haskell emphasize=2:14-2:14,3:16-3:16,6:18-6:18,7:20-7:20 include=src/examples/Examples.hs snippet=simple-sum-product}
-```
-. . .
-
-```{.haskell}
-sum :: Num a => [a] -> a
-sum xs = foldr (+) 0 xs
-
-product :: Num a => [a] -> a
-product xs = foldr (*) 1 xs
-```
-. . .
-
 ```{.haskell}
 sum :: (Foldable t, Num a) => t a -> a
 sum xs = foldr (+) 0 xs
 ```
-
-## Foldable
+. . .
 
 ```{.haskell}
-instance Semigroup [a] where
-  []     <> ys = ys
-  (x:xs) <> ys = x : (xs <> ys)
+product :: (Foldable t, Num a) => t a -> a
+product xs = foldr (*) 1 xs
 ```
 . . .
 
@@ -619,7 +604,6 @@ instance Semigroup [a] where
 instance Semigroup [a] where
   xs <> ys = foldr (:) ys xs
 ```
-
 . . .
 
 ```{.haskell}
