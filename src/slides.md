@@ -414,20 +414,6 @@ Maybe :: * -> *
 > :kind Maybe Int
 Maybe Int :: *
 ```
-. . .
-
-```{.haskell}
-> :kind Num 
-Num :: * -> Constraint
-```
-
-. . .
-
-```{.haskell}
-> :kind Monad 
-Monad :: (* -> *) -> Constraint
-```
-
 
 
 ## Typeclasses
