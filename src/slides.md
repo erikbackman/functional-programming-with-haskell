@@ -347,21 +347,6 @@ length (head:tail) = 1 + length tail
 ## Lat evaluering
 
 ```{.haskell}
-if length xs == 0 || length ys == 0
-then ...
-else ...
-```
-. . .
-
-```{.haskell}
-(||) :: Bool -> Bool -> Bool
-True  || _ = True
-False || x = x
-```
-
-## Lat evaluering
-
-```{.haskell}
 > take 5 [1..]
 [1,2,3,4,5]
 ```
