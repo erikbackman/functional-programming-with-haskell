@@ -261,12 +261,6 @@ shoutHello = map toUpper . sayHello
 
 ## Parametrisk polymorfism
 
-> “Write down the definition of a polymorphic function on a piece of paper.
-> Tell me its type, but be careful not to let me see the function’s definition.
-> I will tell you a theorem that the function satisfies.”
-
-## Parametrisk polymorfism
-
 ```{.haskell}
 map :: (a -> b) -> [a] -> [b]
 map f as = ...
