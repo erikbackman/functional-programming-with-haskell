@@ -749,13 +749,6 @@ pure returnera ett värde a i nån struktur \\(f\\) där \\(f\\) är en funktor.
 
 I Haskell används ofta monads för att simulera effektfulla beräkningar på ett
 rent funktionellt sätt.
-
-
-```{.haskell}
-class Applicative f => Monad (f :: * -> *) where
-  return :: a -> f a
-  (>>=)  :: f a -> (a -> f b) -> f b
-```
 . . .
 
 ```{.haskell}
@@ -777,12 +770,19 @@ join :: Monad f => f (f a) -> f a
 ```
 . . .
 
-Operationen `(>>=)` för monads låter oss applicera en funktion: \\(a \\rightarrow f\\ b\\) till
-ett argument: \\(f\\ a\\)
-
 ```{.haskell}
 fa >>= f = join (fmap f fa)
 ```
+. . .
+
+```{.haskell}
+class Applicative f => Monad (f :: * -> *) where
+  return :: a -> f a
+  (>>=)  :: f a -> (a -> f b) -> f b
+```
+
+Operationen `(>>=)` för monads låter oss applicera en funktion: \\(a \\rightarrow f\\ b\\) till
+ett argument: \\(f\\ a\\)
 
 ## Exempel på Monads i Haskell
 * Maybe 
