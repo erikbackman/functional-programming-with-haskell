@@ -654,7 +654,12 @@ gList (x:xs) = g x : fList xs
 ## Functors i Haskell
 
 En typkonstruktor `* -> *` i kategorin Haskell vars objekt är typer och funktioner i Haskell.
+. . .
 
+```{.haskell}
+class Functor (f :: * -> *) where
+  fmap :: (a -> b) -> f a -> f b
+```
 . . .
 
 ```{.haskell}
@@ -665,21 +670,8 @@ fa = Just 1
 ```{.haskell}
 fa = [1] 
 ```
-. . .
-
-```{.haskell}
-class Functor (f :: * -> *) where
-  fmap :: (a -> b) -> f a -> f b
-```
 
 ## Functor
-
-```{.haskell}
-instance Functor Maybe where
-  fmap f Nothing  = Nothing
-  fmap f (Just x) = Just (f x)
-```
-. . .
 
 ```{.haskell}
 > :type g
@@ -691,7 +683,13 @@ g :: a -> b
 > :type fmap g 
 fmap g :: (Functor f) => (f a -> f b)
 ```
+. . .
 
+```{.haskell}
+instance Functor Maybe where
+  fmap f Nothing  = Nothing
+  fmap f (Just x) = Just (f x)
+```
 
 ## Functor
 

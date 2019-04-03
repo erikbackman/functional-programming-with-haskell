@@ -544,6 +544,20 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 <p>En functor <strong>F</strong> som transformerar en kategori <strong>A</strong> till sig själv kallas för endofunctor.</p>
 <p><img src="images/endofunctor.jpg" height="500" /></p>
 </section>
+<section id="functor-2" class="slide level2">
+<h2>Functor</h2>
+<pre class="haskell"><code>g :: a -&gt; b</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>gMaybe :: Maybe a -&gt; Maybe b
+gMaybe Nothing  = Nothing
+gMaybe (Just x) = Just (g x)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>gList :: [a] -&gt; [b] 
+gList []     = []
+gList (x:xs) = g x : fList xs</code></pre>
+</div>
+</section>
 <section id="functors-i-haskell" class="slide level2">
 <h2>Functors i Haskell</h2>
 <p>En typkonstruktor <code>* -&gt; *</code> i kategorin Haskell vars objekt är typer och funktioner i Haskell.</p>
@@ -553,37 +567,23 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>fa = [1] </code></pre>
 </div>
-</section>
-<section id="functor-2" class="slide level2">
-<h2>Functor</h2>
-<pre class="haskell"><code>f :: a -&gt; b</code></pre>
 <div class="fragment">
-<pre class="haskell"><code>fMaybe :: Maybe a -&gt; Maybe b
-fMaybe Nothing  = Nothing
-fMaybe (Just x) = Just (f x)</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>fList :: [a] -&gt; [b] 
-fList []     = []
-fList (x:xs) = f x : fList xs</code></pre>
+<pre class="haskell"><code>class Functor (f :: * -&gt; *) where
+  fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
 </div>
 </section>
 <section id="functor-3" class="slide level2">
 <h2>Functor</h2>
-<pre class="haskell"><code>class Functor (f :: * -&gt; *) where
-  fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
-<div class="fragment">
 <pre class="haskell"><code>instance Functor Maybe where
   fmap f Nothing  = Nothing
   fmap f (Just x) = Just (f x)</code></pre>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :type g
+g :: a -&gt; b</code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>&gt; :type f
-f :: a -&gt; b</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>&gt; :type fmap f
-fmap f :: (Functor f) =&gt; (f a -&gt; f b)</code></pre>
+<pre class="haskell"><code>&gt; :type fmap g 
+fmap g :: (Functor f) =&gt; (f a -&gt; f b)</code></pre>
 </div>
 </section>
 <section id="functor-4" class="slide level2">
@@ -621,16 +621,11 @@ Just [2,3,4]</code></pre>
 </section>
 <section id="monad" class="slide level2">
 <h2>Monad</h2>
-<p>I Haskell används ofta monads för att simulera effektfulla beräkningar på ett rent funktionellt sätt.</p>
-<pre class="haskell"><code>class Applicative f =&gt; Monad (f :: * -&gt; *) where
-  return :: a -&gt; f a
-  (&gt;&gt;=)  :: f a -&gt; (a -&gt; f b) -&gt; f b</code></pre>
-<div class="fragment">
+<p>I Haskell används ofta monads för att simulera effektfulla beräkningar på ett rent funktionellt sätt. . . .</p>
 <pre class="haskell"><code>f :: Int -&gt; Maybe Int
 g :: Int -&gt; Maybe Int
 
 p = f (g 1) -- Kompilerar ej.</code></pre>
-</div>
 <div class="fragment">
 <pre class="haskell"><code>&gt; :t fmap f (g 1)
 fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
@@ -640,8 +635,13 @@ fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
 <h2>Monad</h2>
 <pre class="haskell"><code>join :: Monad f =&gt; f (f a) -&gt; f a</code></pre>
 <div class="fragment">
-<p>Operationen <code>(&gt;&gt;=)</code> för monads låter oss applicera en funktion: \(a \rightarrow f\ b\) till ett argument: \(f\ a\)</p>
 <pre class="haskell"><code>fa &gt;&gt;= f = join (fmap f fa)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>class Applicative f =&gt; Monad (f :: * -&gt; *) where
+  return :: a -&gt; f a
+  (&gt;&gt;=)  :: f a -&gt; (a -&gt; f b) -&gt; f b</code></pre>
+<p>Operationen <code>(&gt;&gt;=)</code> för monads låter oss applicera en funktion: \(a \rightarrow f\ b\) till ett argument: \(f\ a\)</p>
 </div>
 </section>
 <section id="exempel-på-monads-i-haskell" class="slide level2">
