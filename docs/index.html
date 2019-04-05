@@ -66,14 +66,20 @@
 <h2>Motiverande exempel</h2>
 <p>Imperativa program kan vara svåra att resonera om.</p>
 <div class="fragment">
-<pre class="c"><code>int method(int arg) {...}
+<pre class="c"><code>int method(int arg) {
+  print(arg);
+  return arg * 2;
+}
 
 int program(int arg) {
   return (method(arg) + method(arg));
 }</code></pre>
 </div>
 <div class="fragment">
-<pre class="c"><code>int method(int arg) {...}
+<pre class="c"><code>int method(int arg) {
+  print(arg);
+  return arg * 2;
+}
 
 int program(int arg) {
   int result = method(arg);
@@ -83,21 +89,33 @@ int program(int arg) {
 </section>
 <section id="vad-är-funktionell-programmering" class="slide level2">
 <h2>Vad är funktionell programmering?</h2>
-<div class="fragment">
-<p>Programmering med funktioner ¯\_( ͡° ͜ʖ ͡°)_/¯</p>
-</div>
+<pre class="c"><code>int method(int arg) {
+  return arg * 2;
+}
+
+int program(int arg) {
+  int result = method(arg);
+  return (result + result);
+}</code></pre>
 </section>
-<section id="vad-är-en-funktion" class="slide level2">
-<h2>Vad är en funktion?</h2>
-<p>En funktion \( f : A \rightarrow B \) är en relation från \(A\) till \(B\) som definerar exakt ett element i \(B\) till varje element i \(A\).</p>
+<section id="ekvationella-resonemang" class="slide level2">
+<h2>Ekvationella resonemang</h2>
+<p>Funktionell programmering och referenstransparens möjliggör för </br> ekvationella resonemang om ett programs egenskaper.</p>
 <div class="fragment">
-<pre class="haskell"><code>data A = A1 | A2 
+<p>I Haskell defineras en funktion som en ekvation.</p>
+<pre class="haskell"><code>square x = x * x
 
-data B = B1 | B2
-
-f :: A -&gt; B
-f A1 = B1
-f A2 = B2</code></pre>
+p = square 2</code></pre>
+</div>
+<div class="fragment">
+<p>Likhet innebär att vi kan substituera square x för x * x och vice versa.</p>
+<pre class="haskell"><code>p = 2 * 2</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>p = 4</code></pre>
+</div>
+<div class="fragment">
+<p>Ett Haskell-program är ett enda stort referentiellt transparent uttryck.</p>
 </div>
 </section>
 <section id="en-funktion-har-följande-egenskaper" class="slide level2">
@@ -118,36 +136,11 @@ f A2 = B2</code></pre>
 </ul>
 </div>
 </section>
-<section id="ekvationella-resonemang" class="slide level2">
-<h2>Ekvationella resonemang</h2>
-<p>Funktionell programmering möjliggör för ekvationella resonemang om ett programs egenskaper.</p>
-<div class="fragment">
-<p>I Haskell defineras en funktion som en ekvation.</p>
-<pre class="haskell"><code>square x = x * x
-
-p = square 2</code></pre>
-</div>
-<div class="fragment">
-<p>Likhet innebär att vi kan substituera square x för x * x och vice versa.</p>
-<pre class="haskell"><code>p = 2 * 2</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>p = 4</code></pre>
-</div>
-<div class="fragment">
-<p>Ett Haskell-program är ett enda stort referentiellt transparent uttryck.</p>
-</div>
-</section>
 <section id="vad-är-haskell" class="slide level2">
 <h2>Vad är Haskell?</h2>
 <ul>
 <li>Rent, funktionell programmeringsspråk med lat evaluering.</li>
-<li>Släpptes första gången år 1990.
-<ul>
-<li>Haskell 1.0 (1990)</li>
-<li>Haskell 2010 (Senaste)</li>
-<li>GHC 8.6.3 (December 2018)</li>
-</ul></li>
+<li>Släpptes första gången år 1990.</li>
 <li>Stark statisk typning med typinferens.</li>
 <li>Tolkat såväl som kompilerat.
 <ul>
@@ -167,10 +160,6 @@ p = square 2</code></pre>
 </section>
 <section id="haskell-och-io" class="slide level2">
 <h2>Haskell och IO</h2>
-<p><img data-src="images/haskellmeme01.png" /></p>
-</section>
-<section id="haskell-och-io-1" class="slide level2">
-<h2>Haskell och IO</h2>
 <p>I Haskell är en effekt ett första-klassens värde.</p>
 <pre class="haskell"><code>getLine :: IO String             -- En effekt som producerar en `String`
 
@@ -187,8 +176,17 @@ Hello World</code></pre>
 </section>
 <section id="högre-ordningens-funktioner" class="slide level2">
 <h2>Högre ordningens funktioner</h2>
+<pre class="haskell"><code>&gt; filter (\x -&gt; x &lt;= 5) [1..10]
+[1,2,3,4,5]</code></pre>
 <div class="fragment">
+<pre class="haskell"><code>&gt; filter (&lt;= 5) [1..10]
+[1,2,3,4,5]</code></pre>
+</div>
+</section>
+<section id="högre-ordningens-funktioner-1" class="slide level2">
+<h2>Högre ordningens funktioner</h2>
 <p>\((f \circ g) x = f (g(x))\)</p>
+<div class="fragment">
 <pre class="haskell"><code>(.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; (a -&gt; c)</code></pre>
 </div>
 <div class="fragment">
@@ -198,55 +196,9 @@ reverseSort = reverse . sort</code></pre>
 [4,2,1]</code></pre>
 </div>
 </section>
-<section id="högre-ordningens-funktioner-1" class="slide level2">
-<h2>Högre ordningens funktioner</h2>
-<div class="fragment">
-<pre class="haskell"><code>(++) :: [a] -&gt; [a] -&gt; [a]</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>sayHello :: String -&gt; String                 -- String är alias för [Char]
-sayHello = (++) &quot;Hello &quot; </code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>shoutHello :: String -&gt; String
-shoutHello = toUpper . sayHello</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>&gt; stack build
-error:
-    • Couldn&#39;t match type ‘[Char]’ with ‘Char’
-      Expected type: [Char] -&gt; Char
-        Actual type: [Char] -&gt; [Char]
-    • In the second argument of ‘(.)’, namely ‘sayHello’
-      In the expression: toUpper . sayHello
-      In an equation for ‘shoutHello’: shoutHello = toUpper . sayHello</code></pre>
-</div>
-</section>
-<section id="högre-ordningens-funktioner-2" class="slide level2">
-<h2>Högre ordningens funktioner</h2>
-<pre class="haskell"><code>&gt; :t toUpper
-toUpper :: Char -&gt; Char</code></pre>
-<div class="fragment">
-<pre class="haskell"><code>&gt; :t map toUpper :: [Char] -&gt; [Char]</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>shoutHello :: String -&gt; String
-shoutHello = map toUpper . sayHello </code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>&gt; shoutHello &quot;Haskell&quot; 
-&quot;HELLO HASKELL&quot;</code></pre>
-</div>
-<div class="fragment">
-<p></br></p>
-<pre class="haskell"><code>&gt; filter (\x -&gt; x &lt;= 5) [1..10]
-[1,2,3,4,5]</code></pre>
-</div>
-</section>
 <section id="parametrisk-polymorfism" class="slide level2">
 <h2>Parametrisk polymorfism</h2>
-<pre class="haskell"><code>map :: (a -&gt; b) -&gt; [a] -&gt; [b]
-map f as = ...</code></pre>
+<pre class="haskell"><code>(.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; (a -&gt; c)</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>id :: a -&gt; a </code></pre>
 </div>
@@ -463,8 +415,7 @@ id
 &quot;foobar&quot;</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>&gt; [1,2,3] &lt;&gt; mempty
-[1,2,3]
-</code></pre>
+[1,2,3]</code></pre>
 </div>
 <div class="fragment">
 <pre class="haskell"><code>&gt; [1,2,3] &lt;&gt; [4,5,6]
@@ -480,10 +431,6 @@ id
 <div class="fragment">
 <pre class="haskell"><code>&gt; (&quot;Foo&quot;, &quot;Hello&quot;) &lt;&gt; (&quot;Bar&quot;, &quot;World&quot;)
 (&quot;FooBar&quot;,&quot;HelloWorld&quot;)</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>&gt; (&quot;Foo&quot;, &quot;Hello&quot;) &lt;&gt; mempty
-(&quot;Foo&quot;,&quot;Hello&quot;)</code></pre>
 </div>
 </section>
 <section id="semigroup-monoid-4" class="slide level2">
@@ -614,7 +561,7 @@ Just [2,3,4]</code></pre>
 </section>
 <section id="applicative" class="slide level2">
 <h2>Applicative</h2>
-<p>Applicatives är monoidal funktors.</p>
+<p>Applicatives är monoidal functors.</p>
 <pre class="haskell"><code>class Functor f =&gt; Applicative (f :: * -&gt; *) where
   pure :: a -&gt; f a
   (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>

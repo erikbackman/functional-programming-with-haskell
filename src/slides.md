@@ -27,7 +27,10 @@ Imperativa program kan vara svåra att resonera om.
 . . .
 
 ```{.c}
-int method(int arg) {...}
+int method(int arg) {
+  print(arg);
+  return arg * 2;
+}
 
 int program(int arg) {
   return (method(arg) + method(arg));
@@ -37,7 +40,10 @@ int program(int arg) {
 . . .
 
 ```{.c}
-int method(int arg) {...}
+int method(int arg) {
+  print(arg);
+  return arg * 2;
+}
 
 int program(int arg) {
   int result = method(arg);
@@ -47,44 +53,21 @@ int program(int arg) {
 
 ## Vad är funktionell programmering?
 
-. . .
+```{.c}
+int method(int arg) {
+  return arg * 2;
+}
 
-Programmering med funktioner ¯\\\_( ͡° ͜ʖ ͡°)_/¯
-
-## Vad är en funktion?
-
-En funktion \\( f : A \\rightarrow B \\) är en relation från \\(A\\) till
-\\(B\\) som definerar exakt ett element i \\(B\\) till varje element i \\(A\\).
-
-. . .
-
-```{.haskell}
-data A = A1 | A2 
-
-data B = B1 | B2
-
-f :: A -> B
-f A1 = B1
-f A2 = B2
+int program(int arg) {
+  int result = method(arg);
+  return (result + result);
+}
 ```
-
-## En funktion har följande egenskaper 
-
-. . .
-
-* Total
-
-. . .
-
-* Deterministisk
-
-. . .
-
-* Inga sido-effekter
 
 ## Ekvationella resonemang 
 
-Funktionell programmering möjliggör för ekvationella resonemang om ett programs egenskaper.
+Funktionell programmering och referenstransparens möjliggör för </br>
+ekvationella resonemang om ett programs egenskaper.
 
 . . .
 
@@ -113,12 +96,24 @@ p = 4
 
 Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
+## En funktion har följande egenskaper 
+
+. . .
+
+* Total
+
+. . .
+
+* Deterministisk
+
+. . .
+
+* Inga sido-effekter
+
+
 ## Vad är Haskell?
 * Rent, funktionell programmeringsspråk med lat evaluering.
 * Släpptes första gången år 1990.
-  * Haskell 1.0 (1990)
-  * Haskell 2010 (Senaste)
-  * GHC 8.6.3 (December 2018)
 * Stark statisk typning med typinferens.
 * Tolkat såväl som kompilerat.
   * GHCi är en REPL där Haskell-kod kan tolkas.
@@ -130,9 +125,6 @@ Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 ## Ren Funktionell Programmering <br/> med haskell
 ![](images/haskell_logo2.svg)
-
-## Haskell och IO
-![](images/haskellmeme01.png)
 
 ## Haskell och IO
 
@@ -177,11 +169,14 @@ Hello World
 
 \\((f \\circ g) x = f (g(x))\\)
 
+. . .
+
 ```{.haskell}
 (.) :: (b -> c) -> (a -> b) -> (a -> c)
 ```
 
 . . .
+
 ```{.haskell}
 reverseSort :: [a] -> [a]
 reverseSort = reverse . sort
@@ -193,6 +188,12 @@ reverseSort = reverse . sort
 ```
 
 ## Parametrisk polymorfism
+
+```{.haskell}
+(.) :: (b -> c) -> (a -> b) -> (a -> c)
+```
+
+. . .
 
 ```{.haskell}
 id :: a -> a 
