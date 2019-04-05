@@ -20,54 +20,10 @@ This is my note.
 
 </div>
 
-## Programmera med matematiska funktioner
+## Motiverande exempel 
 
-En funktion \\( f : A \\rightarrow B \\) är en relation från \\(A\\) till
-\\(B\\) som definerar exakt ett element i \\(B\\) till varje element i \\(A\\).
+Imperativa program kan vara svåra att resonera om.
 
-```{.haskell}
-data A = A1 | A2 
-
-data B = B1 | B2
-
-f :: A -> B
-f A1 = B1
-f A2 = B2
-```
-
-## Funktioner
-
-I Haskell defineras en funktion som en ekvation.
-
-```{.haskell}
-square x = x * x
-
-p = square 2
-```
-
-## Referenstransparens
-
-Likhet innebär att vi kan byta ut square x för x * x och vice versa.
-
-```{.haskell}
-square x = x * x
-
-p = square 2
-```
-. . .
-```{.haskell}
-p = 2 * 2
-```
-. . .
-```{.haskell}
-p = 4
-```
-. . .
-
-Detta kallas för _referenstransparens_.
-Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
-
-## Imperativa program kan vara svåra att resonera om
 . . .
 
 ```{.c}
@@ -77,6 +33,7 @@ int program(int arg) {
   return (method(arg) + method(arg));
 }
 ```
+
 . . .
 
 ```{.c}
@@ -88,35 +45,73 @@ int program(int arg) {
 }
 ```
 
-## Refaktorering
-Eftersom vi inte behöver ta hänsyn till sidoeffekter kan vi alltid simplifiera
-ett program utan att dess egenskaper förändras.
-
-## Ekvationella resonemang
-Funktionell programmering och referenstransparens möjliggör för ekvationella
-resonemang om ett programs egenskaper.
-
-## Komposition
-
-\\((f \\circ g) x = f (g(x))\\)
+## Vad är funktionell programmering?
 
 . . .
+
+Programmering med funktioner ¯\\\_( ͡° ͜ʖ ͡°)_/¯
+
+## Vad är en funktion?
+
+En funktion \\( f : A \\rightarrow B \\) är en relation från \\(A\\) till
+\\(B\\) som definerar exakt ett element i \\(B\\) till varje element i \\(A\\).
+
+. . .
+
 ```{.haskell}
-(.) :: (b -> c) -> (a -> b) -> (a -> c)
+data A = A1 | A2 
+
+data B = B1 | B2
+
+f :: A -> B
+f A1 = B1
+f A2 = B2
+```
+
+## En funktion har följande egenskaper 
+
+. . .
+
+* Total
+
+. . .
+
+* Deterministisk
+
+. . .
+
+* Inga sido-effekter
+
+## Ekvationella resonemang 
+
+Funktionell programmering möjliggör för ekvationella resonemang om ett programs egenskaper.
+
+. . .
+
+I Haskell defineras en funktion som en ekvation.
+
+```{.haskell}
+square x = x * x
+
+p = square 2
 ```
 
 . . .
+
+Likhet innebär att vi kan substituera square x för x * x och vice versa.
 ```{.haskell}
-reverseSort :: [a] -> [a]
-reverseSort = reverse . sort
+p = 2 * 2
 ```
 
+. . .
+
 ```{.haskell}
-> reverseSort [4,1,2] -- reverse (sort [4,1,2])
-[4,2,1]
+p = 4
 ```
 
-Med sido-effekter hade komposition ej vart möjligt.
+. . .
+
+Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 ## Vad är Haskell?
 * Rent, funktionell programmeringsspråk med lat evaluering.
@@ -165,22 +160,47 @@ Hello World
 ```
 
 ## Högre ordningens funktioner
+. . .
+
+\\((f \\circ g) x = f (g(x))\\)
+
+```{.haskell}
+(.) :: (b -> c) -> (a -> b) -> (a -> c)
+```
+
+. . .
+```{.haskell}
+reverseSort :: [a] -> [a]
+reverseSort = reverse . sort
+```
+
+```{.haskell}
+> reverseSort [4,1,2] -- reverse (sort [4,1,2])
+[4,2,1]
+```
+
+## Högre ordningens funktioner
+
+. . .
 
 ```{.haskell}
 (++) :: [a] -> [a] -> [a]
 ```
+
 . . .
+
 ```{.haskell}
 sayHello :: String -> String                 -- String är alias för [Char]
 sayHello = (++) "Hello " 
 ```
-. . .
 
 . . .
 ```{.haskell}
 shoutHello :: String -> String
 shoutHello = toUpper . sayHello
 ```
+
+. . .
 
 ```{.haskell}
 > stack build
@@ -210,6 +230,8 @@ toUpper :: Char -> Char
 shoutHello :: String -> String
 shoutHello = map toUpper . sayHello 
 ```
+
+. . .
 
 ```{.haskell}
 > shoutHello "Haskell" 
@@ -344,6 +366,7 @@ fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 
 Haskell's kindsystem kan beskrivas som ett typsystem för typer.
 Kinds ger oss ett sätt att beskriva vilken typ en typ har.
+. . .
 
 ```{.haskell}
 > :kind Int
@@ -354,6 +377,12 @@ Int :: *
 ```{.haskell}
 > :kind [] 
 [] :: * -> *
+```
+. . .
+
+```{.haskell}
+> :kind [Int] 
+[Int] :: *
 ```
 
 ## Higher-kinded types 
@@ -619,6 +648,7 @@ gList (x:xs) = g x : fList xs
 ## Functors i Haskell
 
 En typkonstruktor `* -> *` i kategorin Haskell vars objekt är typer och funktioner i Haskell.
+
 . . .
 
 ```{.haskell}

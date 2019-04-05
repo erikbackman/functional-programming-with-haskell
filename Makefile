@@ -3,10 +3,10 @@ TEX=xelatex
 MASTER=src/master.tex
 TEX_OPTIONS=options.tex
 SRCS=$(shell find src -name '*.tex') \
-     $(shell find src -name '*.bib') \
-     $(shell find src -name '*.md') \
-     $(shell find src -name '*.css') \
-		 $(shell find src/examples -name '*.hs')
+	 $(shell find src -name '*.bib') \
+	 $(shell find src -name '*.md') \
+	 $(shell find src -name '*.css') \
+	 $(shell find src/examples -name '*.hs')
 
 PANDOC_FLAGS= -s \
 						  -f markdown+multiline_tables+raw_attribute \
@@ -97,7 +97,7 @@ target/images/%: src/images/%
 	cp $< $@
 
 serve: html-slides
-	(find src | entr -s 'make html-slides && scripts/reload-browser Firefox') &
+	(find src | entr -s 'make html-slides && scripts/reload-browser Chromium') &
 	serve -p 10000 target/html
 
 .PHONY: pages

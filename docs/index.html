@@ -62,40 +62,9 @@
 </ul>
 </aside>
 </section>
-<section id="programmera-med-matematiska-funktioner" class="slide level2">
-<h2>Programmera med matematiska funktioner</h2>
-<p>En funktion \( f : A \rightarrow B \) är en relation från \(A\) till \(B\) som definerar exakt ett element i \(B\) till varje element i \(A\).</p>
-<pre class="haskell"><code>data A = A1 | A2 
-
-data B = B1 | B2
-
-f :: A -&gt; B
-f A1 = B1
-f A2 = B2</code></pre>
-</section>
-<section id="funktioner" class="slide level2">
-<h2>Funktioner</h2>
-<p>I Haskell defineras en funktion som en ekvation.</p>
-<pre class="haskell"><code>square x = x * x
-
-p = square 2</code></pre>
-</section>
-<section id="referenstransparens" class="slide level2">
-<h2>Referenstransparens</h2>
-<p>Likhet innebär att vi kan byta ut square x för x * x och vice versa. Detta kallas ofta för <em>referenstransparens</em>.</p>
-<pre class="haskell"><code>square x = x * x
-
-p = square 2</code></pre>
-<div class="fragment">
-<pre class="haskell"><code>p = 2 * 2</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>p = 4</code></pre>
-<p>Dubbelriktad substitution är alltid möjligt eftersom Haskell är rent.</br> Ett Haskell-program är ett enda stort referentiellt transparent uttryck.</p>
-</div>
-</section>
-<section id="imperativa-program-kan-vara-svåra-att-resonera-om" class="slide level2">
-<h2>Imperativa program kan vara svåra att resonera om</h2>
+<section id="motiverande-exempel" class="slide level2">
+<h2>Motiverande exempel</h2>
+<p>Imperativa program kan vara svåra att resonera om.</p>
 <div class="fragment">
 <pre class="c"><code>int method(int arg) {...}
 
@@ -110,50 +79,63 @@ int program(int arg) {
   int result = method(arg);
   return (result + result);
 }</code></pre>
-<p>Rena funktionella språk som Haskell saknar tilldelningssatser.</p>
 </div>
 </section>
-<section id="refaktorering" class="slide level2">
-<h2>Refaktorering</h2>
-<p>Eftersom vi inte behöver ta hänsyn till sidoeffekter kan vi alltid simplifiera ett program utan att dess egenskaper förändras.</p>
-<pre class="haskell"><code>p = f x + f y * (f x - f x)</code></pre>
+<section id="vad-är-funktionell-programmering" class="slide level2">
+<h2>Vad är funktionell programmering?</h2>
 <div class="fragment">
-<pre class="haskell"><code>p = f x + f y * 0</code></pre>
+<p>Programmering med funktioner ¯\_( ͡° ͜ʖ ͡°)_/¯</p>
+</div>
+</section>
+<section id="vad-är-en-funktion" class="slide level2">
+<h2>Vad är en funktion?</h2>
+<p>En funktion \( f : A \rightarrow B \) är en relation från \(A\) till \(B\) som definerar exakt ett element i \(B\) till varje element i \(A\).</p>
+<div class="fragment">
+<pre class="haskell"><code>data A = A1 | A2 
+
+data B = B1 | B2
+
+f :: A -&gt; B
+f A1 = B1
+f A2 = B2</code></pre>
+</div>
+</section>
+<section id="en-funktion-har-följande-egenskaper" class="slide level2">
+<h2>En funktion har följande egenskaper</h2>
+<div class="fragment">
+<ul>
+<li>Total</li>
+</ul>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>p = f x + 0</code></pre>
+<ul>
+<li>Deterministisk</li>
+</ul>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>p = f x</code></pre>
+<ul>
+<li>Inga sido-effekter</li>
+</ul>
 </div>
 </section>
 <section id="ekvationella-resonemang" class="slide level2">
 <h2>Ekvationella resonemang</h2>
-<p>Funktionell programmering och referenstransparens möjliggör för ekvationella resonemang om ett programs egenskaper.</p>
-<pre class="haskell"><code>reverse :: [a] -&gt; [a]
-reverse []     = []
-reverse (x:xs) = reverse xs ++ [x]</code></pre>
+<p>Funktionell programmering möjliggör för ekvationella resonemang om ett programs egenskaper.</p>
 <div class="fragment">
-<p>Vi kan bevisa att: \(\forall x. reverse [x] = [x]\)</p>
-<pre class="haskell"><code>reverse [x]
-reverse (x: [])
-reverse [] ++ [x]
-[] ++ [x]
-[x]</code></pre>
-</div>
-</section>
-<section id="komposition" class="slide level2">
-<h2>Komposition</h2>
-<p>\((f \circ g) x = f (g(x))\)</p>
-<div class="fragment">
-<pre class="haskell"><code>(.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; (a -&gt; c)</code></pre>
+<p>I Haskell defineras en funktion som en ekvation.</p>
+<pre class="haskell"><code>square x = x * x
+
+p = square 2</code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>reverseSort :: [a] -&gt; [a]
-reverseSort = reverse . sort</code></pre>
-<pre class="haskell"><code>&gt; reverseSort [4,1,2] -- reverse (sort [4,1,2])
-[4,2,1]</code></pre>
-<p>Med sido-effekter hade komposition ej vart möjligt.</p>
+<p>Likhet innebär att vi kan substituera square x för x * x och vice versa.</p>
+<pre class="haskell"><code>p = 2 * 2</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>p = 4</code></pre>
+</div>
+<div class="fragment">
+<p>Ett Haskell-program är ett enda stort referentiellt transparent uttryck.</p>
 </div>
 </section>
 <section id="vad-är-haskell" class="slide level2">
@@ -205,7 +187,22 @@ Hello World</code></pre>
 </section>
 <section id="högre-ordningens-funktioner" class="slide level2">
 <h2>Högre ordningens funktioner</h2>
+<div class="fragment">
+<p>\((f \circ g) x = f (g(x))\)</p>
+<pre class="haskell"><code>(.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; (a -&gt; c)</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>reverseSort :: [a] -&gt; [a]
+reverseSort = reverse . sort</code></pre>
+<pre class="haskell"><code>&gt; reverseSort [4,1,2] -- reverse (sort [4,1,2])
+[4,2,1]</code></pre>
+</div>
+</section>
+<section id="högre-ordningens-funktioner-1" class="slide level2">
+<h2>Högre ordningens funktioner</h2>
+<div class="fragment">
 <pre class="haskell"><code>(++) :: [a] -&gt; [a] -&gt; [a]</code></pre>
+</div>
 <div class="fragment">
 <pre class="haskell"><code>sayHello :: String -&gt; String                 -- String är alias för [Char]
 sayHello = (++) &quot;Hello &quot; </code></pre>
@@ -213,6 +210,8 @@ sayHello = (++) &quot;Hello &quot; </code></pre>
 <div class="fragment">
 <pre class="haskell"><code>shoutHello :: String -&gt; String
 shoutHello = toUpper . sayHello</code></pre>
+</div>
+<div class="fragment">
 <pre class="haskell"><code>&gt; stack build
 error:
     • Couldn&#39;t match type ‘[Char]’ with ‘Char’
@@ -223,7 +222,7 @@ error:
       In an equation for ‘shoutHello’: shoutHello = toUpper . sayHello</code></pre>
 </div>
 </section>
-<section id="högre-ordningens-funktioner-1" class="slide level2">
+<section id="högre-ordningens-funktioner-2" class="slide level2">
 <h2>Högre ordningens funktioner</h2>
 <pre class="haskell"><code>&gt; :t toUpper
 toUpper :: Char -&gt; Char</code></pre>
@@ -233,6 +232,8 @@ toUpper :: Char -&gt; Char</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>shoutHello :: String -&gt; String
 shoutHello = map toUpper . sayHello </code></pre>
+</div>
+<div class="fragment">
 <pre class="haskell"><code>&gt; shoutHello &quot;Haskell&quot; 
 &quot;HELLO HASKELL&quot;</code></pre>
 </div>
@@ -318,12 +319,16 @@ length (head:tail) = 1 + length tail</code></pre>
 </section>
 <section id="kinds" class="slide level2">
 <h2>Kinds</h2>
-<p>Haskell’s kindsystem kan beskrivas som ett typsystem för typer. Kinds ger oss ett sätt att beskriva vilken typ en typ har.</p>
+<p>Haskell’s kindsystem kan beskrivas som ett typsystem för typer. Kinds ger oss ett sätt att beskriva vilken typ en typ har. . . .</p>
 <pre class="haskell"><code>&gt; :kind Int
 Int :: *</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>&gt; :kind [] 
 [] :: * -&gt; *</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>&gt; :kind [Int] 
+[Int] :: *</code></pre>
 </div>
 </section>
 <section id="higher-kinded-types" class="slide level2">
@@ -560,9 +565,11 @@ gList (x:xs) = g x : fList xs</code></pre>
 </section>
 <section id="functors-i-haskell" class="slide level2">
 <h2>Functors i Haskell</h2>
-<p>En typkonstruktor <code>* -&gt; *</code> i kategorin Haskell vars objekt är typer och funktioner i Haskell. . . .</p>
+<p>En typkonstruktor <code>* -&gt; *</code> i kategorin Haskell vars objekt är typer och funktioner i Haskell.</p>
+<div class="fragment">
 <pre class="haskell"><code>class Functor (f :: * -&gt; *) where
   fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
+</div>
 <div class="fragment">
 <pre class="haskell"><code>fa = Just 1 </code></pre>
 </div>
