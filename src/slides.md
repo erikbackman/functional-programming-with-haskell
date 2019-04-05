@@ -160,7 +160,20 @@ Hello World
 ```
 
 ## Högre ordningens funktioner
+
+```{.haskell}
+> filter (\x -> x <= 5) [1..10]
+[1,2,3,4,5]
+```
+
 . . .
+
+```{.haskell}
+> filter (<= 5) [1..10]
+[1,2,3,4,5]
+```
+
+## Högre ordningens funktioner
 
 \\((f \\circ g) x = f (g(x))\\)
 
@@ -179,80 +192,7 @@ reverseSort = reverse . sort
 [4,2,1]
 ```
 
-## Högre ordningens funktioner
-
-. . .
-
-```{.haskell}
-(++) :: [a] -> [a] -> [a]
-```
-
-. . .
-
-```{.haskell}
-sayHello :: String -> String                 -- String är alias för [Char]
-sayHello = (++) "Hello " 
-```
-
-. . .
-```{.haskell}
-shoutHello :: String -> String
-shoutHello = toUpper . sayHello
-```
-
-. . .
-
-```{.haskell}
-> stack build
-error:
-    • Couldn't match type ‘[Char]’ with ‘Char’
-      Expected type: [Char] -> Char
-        Actual type: [Char] -> [Char]
-    • In the second argument of ‘(.)’, namely ‘sayHello’
-      In the expression: toUpper . sayHello
-      In an equation for ‘shoutHello’: shoutHello = toUpper . sayHello
-```
-
-## Högre ordningens funktioner
-
-```{.haskell}
-> :t toUpper
-toUpper :: Char -> Char
-```
-. . .
-```{.haskell}
-> :t map toUpper :: [Char] -> [Char]
-```
-. . .
-
-
-```{.haskell}
-shoutHello :: String -> String
-shoutHello = map toUpper . sayHello 
-```
-
-. . .
-
-```{.haskell}
-> shoutHello "Haskell" 
-"HELLO HASKELL"
-```
-
-. . .
-
-</br>
-```{.haskell}
-> filter (\x -> x <= 5) [1..10]
-[1,2,3,4,5]
-```
-
 ## Parametrisk polymorfism
-
-```{.haskell}
-map :: (a -> b) -> [a] -> [b]
-map f as = ...
-```
-. . .
 
 ```{.haskell}
 id :: a -> a 
@@ -501,7 +441,6 @@ class Semigroup a => Monoid a where
 ```{.haskell}
 > [1,2,3] <> mempty
 [1,2,3]
-
 ```
 . . .
 
@@ -526,11 +465,6 @@ instance (Monoid a, Monoid b) => Monoid (a, b) where
 ("FooBar","HelloWorld")
 ```
 . . .
-
-```{.haskell}
-> ("Foo", "Hello") <> mempty
-("Foo","Hello")
-```
 
 ## Semigroup & Monoid
 
@@ -719,7 +653,7 @@ Just [2,3,4]
 
 ## Applicative
 
-Applicatives är monoidal funktors. 
+Applicatives är monoidal functors. 
 
 ```{.haskell}
 class Functor f => Applicative (f :: * -> *) where
