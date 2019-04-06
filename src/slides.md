@@ -242,7 +242,7 @@ data Pair a b = Pair a b
 . . .
 
 ```{.haskell}
-data Tree a = Empty | Node (Tree a) a (Tree a) deriving Show
+data Tree a = Empty | Node (Tree a) a (Tree a)
 ```
 . . .
 
