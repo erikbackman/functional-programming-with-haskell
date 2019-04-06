@@ -563,9 +563,8 @@ Just [2,3,4]</code></pre>
 <h2>Applicative</h2>
 <p>Applicatives är monoidal functors.</p>
 <pre class="haskell"><code>class Functor f =&gt; Applicative (f :: * -&gt; *) where
-  pure :: a -&gt; f a
+  pure  :: a -&gt; f a
   (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
-<p>pure returnera ett värde a i nån struktur \(f\) där \(f\) är en funktor.</br></br> <code>&lt;*&gt;</code> (apply) applicerar en funktion i \(f\) till ett argument i \(f\) och slår sedan samman dessa två strukturer.</p>
 <div class="fragment">
 <pre class="haskell"><code>  fmap  ::   (a -&gt; b) -&gt; f a -&gt; f b
   (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
