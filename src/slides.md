@@ -658,13 +658,9 @@ Applicatives är monoidal functors.
 
 ```{.haskell}
 class Functor f => Applicative (f :: * -> *) where
-  pure :: a -> f a
+  pure  :: a -> f a
   (<*>) :: f (a -> b) -> f a -> f b
 ```
-
-pure returnera ett värde a i nån struktur \\(f\\) där \\(f\\) är en funktor.</br></br>
-`<*>` (apply) applicerar en funktion i \\(f\\) till ett argument i
-\\(f\\) och slår sedan samman dessa två strukturer.
 
 . . .
 
