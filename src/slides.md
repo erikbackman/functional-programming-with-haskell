@@ -481,12 +481,6 @@ instance (Monoid b) => Monoid (a -> b) where
 > (id <> reverse) [1,2,3] 
 [1,2,3,3,2,1]
 ```
-. . .
-
-```{.haskell}
-> mempty 1 :: [Int]
-[]
-```
 
 ## Foldable
 
