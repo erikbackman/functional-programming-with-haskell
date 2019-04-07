@@ -703,6 +703,7 @@ Operationen `(>>=)` för monads låter oss applicera en funktion: \\(a \\rightar
 ett argument: \\(f\\ a\\)
 
 ## Exempel på Monads i Haskell
+* List
 * Maybe 
 * Either 
 * Reader

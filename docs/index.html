@@ -443,10 +443,6 @@ id
 <pre class="haskell"><code>&gt; (id &lt;&gt; reverse) [1,2,3] 
 [1,2,3,3,2,1]</code></pre>
 </div>
-<div class="fragment">
-<pre class="haskell"><code>&gt; mempty 1 :: [Int]
-[]</code></pre>
-</div>
 </section>
 <section id="foldable" class="slide level2">
 <h2>Foldable</h2>
@@ -598,6 +594,7 @@ fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
 <section id="exempel-på-monads-i-haskell" class="slide level2">
 <h2>Exempel på Monads i Haskell</h2>
 <ul>
+<li>List</li>
 <li>Maybe</li>
 <li>Either</li>
 <li>Reader</li>
