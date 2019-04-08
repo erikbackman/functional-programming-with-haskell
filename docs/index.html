@@ -442,8 +442,8 @@ sum xs = foldr (+) 0 xs</code></pre>
 product xs = foldr (*) 1 xs</code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>instance Semigroup [a] where
-  xs &lt;&gt; ys = foldr (:) ys xs</code></pre>
+<pre class="haskell"><code>(++) :: [a] -&gt; [a] -&gt; [a]
+xs ++ ys = foldr (:) ys xs</code></pre>
 </div>
 <div class="fragment">
 <pre class="haskell"><code>summarize :: (Foldable f, Monoid m) =&gt; f m -&gt; m
@@ -454,14 +454,14 @@ summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 <h2>Functor</h2>
 <pre class="haskell"><code>g :: a -&gt; b</code></pre>
 <div class="fragment">
-<pre class="haskell"><code>gMaybe :: Maybe a -&gt; Maybe b
-gMaybe Nothing  = Nothing
-gMaybe (Just x) = Just (g x)</code></pre>
-</div>
-<div class="fragment">
 <pre class="haskell"><code>gList :: [a] -&gt; [b] 
 gList []     = []
 gList (x:xs) = g x : fList xs</code></pre>
+</div>
+<div class="fragment">
+<pre class="haskell"><code>gMaybe :: Maybe a -&gt; Maybe b
+gMaybe Nothing  = Nothing
+gMaybe (Just x) = Just (g x)</code></pre>
 </div>
 </section>
 <section id="functor-1" class="slide level2">
