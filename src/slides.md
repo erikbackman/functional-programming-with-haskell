@@ -605,14 +605,7 @@ g :: a -> b
 
 ```{.haskell}
 > :type fmap g 
-fmap g :: (Functor f) => (f a -> f b)
-```
-. . .
-
-```{.haskell}
-instance Functor Maybe where
-  fmap f Nothing  = Nothing
-  fmap f (Just x) = Just (f x)
+fmap g :: Functor f => (f a -> f b)
 ```
 
 ## Functor

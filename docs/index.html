@@ -526,12 +526,7 @@ gList (x:xs) = g x : fList xs</code></pre>
 g :: a -&gt; b</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>&gt; :type fmap g 
-fmap g :: (Functor f) =&gt; (f a -&gt; f b)</code></pre>
-</div>
-<div class="fragment">
-<pre class="haskell"><code>instance Functor Maybe where
-  fmap f Nothing  = Nothing
-  fmap f (Just x) = Just (f x)</code></pre>
+fmap g :: Functor f =&gt; (f a -&gt; f b)</code></pre>
 </div>
 </section>
 <section id="functor-4" class="slide level2">
