@@ -147,6 +147,13 @@ Hello World
 ## Högre ordningens funktioner
 
 ```{.haskell}
+add :: Int -> Int -> Int
+add x y = x + y
+```
+
+## Högre ordningens funktioner
+
+```{.haskell}
 > filter (\x -> x <= 5) [1..10]
 [1,2,3,4,5]
 ```
