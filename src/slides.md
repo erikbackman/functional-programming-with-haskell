@@ -121,7 +121,7 @@ Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 ## Haskell och IO
 
-I Haskell är en effekt ett första-klassens värde.
+I Haskell är en (sido)effekt ett första-klassens värde.
 ```{.haskell}
 getLine :: IO String             -- En effekt som producerar en `String`
 
