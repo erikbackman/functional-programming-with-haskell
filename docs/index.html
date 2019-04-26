@@ -153,7 +153,7 @@ p = square 2</code></pre>
 </section>
 <section id="haskell-och-io" class="slide level2">
 <h2>Haskell och IO</h2>
-<p>I Haskell är en effekt ett första-klassens värde.</p>
+<p>I Haskell är en (sido)effekt ett första-klassens värde.</p>
 <pre class="haskell"><code>getLine :: IO String             -- En effekt som producerar en `String`
 
 putStrLn :: String -&gt; IO ()      -- En funktion från `String` till en effekt</code></pre>
@@ -169,6 +169,11 @@ Hello World</code></pre>
 </section>
 <section id="högre-ordningens-funktioner" class="slide level2">
 <h2>Högre ordningens funktioner</h2>
+<pre class="haskell"><code>add :: Int -&gt; Int -&gt; Int
+add x y = x + y</code></pre>
+</section>
+<section id="högre-ordningens-funktioner-1" class="slide level2">
+<h2>Högre ordningens funktioner</h2>
 <pre class="haskell"><code>&gt; filter (\x -&gt; x &lt;= 5) [1..10]
 [1,2,3,4,5]</code></pre>
 <div class="fragment">
@@ -176,7 +181,7 @@ Hello World</code></pre>
 [1,2,3,4,5]</code></pre>
 </div>
 </section>
-<section id="högre-ordningens-funktioner-1" class="slide level2">
+<section id="högre-ordningens-funktioner-2" class="slide level2">
 <h2>Högre ordningens funktioner</h2>
 <p>\((f \circ g) x = f (g(x))\)</p>
 <div class="fragment">

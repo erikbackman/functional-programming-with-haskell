@@ -151,6 +151,11 @@ add :: Int -> Int -> Int
 add x y = x + y
 ```
 
+```{.haskell}
+increment :: Int -> Int
+increment = add 1
+```
+
 ## Högre ordningens funktioner
 
 ```{.haskell}
