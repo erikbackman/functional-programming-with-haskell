@@ -11,8 +11,6 @@ SRCS=$(shell find src -name '*.tex') \
 PANDOC_FLAGS= -s \
 						  -f markdown+multiline_tables+raw_attribute \
 						  --mathjax \
-						  --filter pandoc-include-code \
-						  --filter pandoc-emphasize-code \
 						  -fmarkdown-implicit_figures
 
 PANDOC_BEAMER_FLAGS=$(PANDOC_FLAGS) \
@@ -90,7 +88,7 @@ target/html/index.html: $(SRCS) src/header.html src/theme.css $(IMAGES)
 		-o $@
 
 programs:
-	 cd src/examples && stack build 
+	 cd src/examples && cabal new-build
 
 target/images/%: src/images/%
 	mkdir -p target/images

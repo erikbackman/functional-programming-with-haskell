@@ -177,7 +177,7 @@ body {
   margin: 1em auto;
   text-align: left;
   font-size: 0.8em;
-  font-family: 'Iosevka Medium', monospace;
+  font-family: 'Iosevka NF', monospace;
   line-height: 1.3em;
   word-wrap: break-word;
   border: black;
@@ -185,7 +185,7 @@ body {
 }
 
 .reveal code {
-  font-family: 'Iosevka Medium', monospace;
+  font-family: 'Iosevka NF', monospace;
   text-transform: none; }
 
 .reveal pre code {

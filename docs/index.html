@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
-  <style type="text/css">
+  <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
@@ -64,24 +64,17 @@
 </section>
 <section id="motiverande-exempel" class="slide level2">
 <h2>Motiverande exempel</h2>
-<p>Imperativa program kan vara svåra att resonera om.</p>
-<div class="fragment">
 <pre class="c"><code>int method(int arg) {
   print(arg);
   return arg * 2;
-}
-
-int program(int arg) {
+}</code></pre>
+<div class="fragment">
+<pre class="c"><code>int program(int arg) {
   return (method(arg) + method(arg));
 }</code></pre>
 </div>
 <div class="fragment">
-<pre class="c"><code>int method(int arg) {
-  print(arg);
-  return arg * 2;
-}
-
-int program(int arg) {
+<pre class="c"><code>int program(int arg) {
   int result = method(arg);
   return (result + result);
 }</code></pre>
@@ -317,12 +310,7 @@ Maybe Int :: *</code></pre>
 <div class="fragment">
 <pre class="haskell"><code>sum :: Num a =&gt; [a] -&gt; a
 sum []     = 0
-sum (x:xs) = x + sum xs
-
-product :: Num a =&gt; [a] -&gt; a
-product []     = 1
-product (x:xs) = x * product xs
-</code></pre>
+sum (x:xs) = x + sum xs</code></pre>
 </div>
 </section>
 <section id="semigroup-monoid" class="slide level2">
