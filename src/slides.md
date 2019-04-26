@@ -367,7 +367,10 @@ instance Num Int where
 ```
 . . .
 
-```{.haskell include=src/examples/Examples.hs snippet=simple-sum-product}
+```{.haskell}
+sum :: Num a => [a] -> a
+sum []     = 0
+sum (x:xs) = x + sum xs
 ```
 
 ## Semigroup & Monoid
