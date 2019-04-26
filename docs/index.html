@@ -474,22 +474,7 @@ product xs = foldr (*) 1 xs</code></pre>
 summarize fm = foldr (&lt;&gt;) mempty fm</code></pre>
 </div>
 </section>
-<section id="categories-101" class="slide level2">
-<h2>Categories 101</h2>
-<p>En kategori är en algebraisk struktur för att modellera objekt och deras relationer. En kategori <strong>C</strong> består av en samling objekt och pilar mellan objekt.</p>
-<p><img data-src="images/category.jpg" /></p>
-</section>
 <section id="functor" class="slide level2">
-<h2>Functor</h2>
-<p>Inom kategoriteori är en Functor <strong>F</strong> en transformation mellan två kategorier <strong>A</strong> och <strong>B</strong>.</p>
-<p><img data-src="images/functor.jpg" /></p>
-</section>
-<section id="functor-1" class="slide level2">
-<h2>Functor</h2>
-<p>En functor <strong>F</strong> som transformerar en kategori <strong>A</strong> till sig själv kallas för endofunctor.</p>
-<p><img src="images/endofunctor.jpg" height="500" /></p>
-</section>
-<section id="functor-2" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>g :: a -&gt; b</code></pre>
 <div class="fragment">
@@ -505,11 +490,8 @@ gList (x:xs) = g x : fList xs</code></pre>
 </section>
 <section id="functors-i-haskell" class="slide level2">
 <h2>Functors i Haskell</h2>
-<p>En typkonstruktor <code>* -&gt; *</code> i kategorin Haskell vars objekt är typer och funktioner i Haskell.</p>
-<div class="fragment">
 <pre class="haskell"><code>class Functor (f :: * -&gt; *) where
   fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code></pre>
-</div>
 <div class="fragment">
 <pre class="haskell"><code>fa = Just 1 </code></pre>
 </div>
@@ -517,7 +499,7 @@ gList (x:xs) = g x : fList xs</code></pre>
 <pre class="haskell"><code>fa = [1] </code></pre>
 </div>
 </section>
-<section id="functor-3" class="slide level2">
+<section id="functor-1" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>&gt; :type g
 g :: a -&gt; b</code></pre>
@@ -526,7 +508,7 @@ g :: a -&gt; b</code></pre>
 fmap g :: Functor f =&gt; (f a -&gt; f b)</code></pre>
 </div>
 </section>
-<section id="functor-4" class="slide level2">
+<section id="functor-2" class="slide level2">
 <h2>Functor</h2>
 <pre class="haskell"><code>&gt; fmap (+ 1) (Just 1)
 Just 2</code></pre>
