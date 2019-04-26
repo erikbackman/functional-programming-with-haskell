@@ -543,26 +543,6 @@ summarize :: (Foldable f, Monoid m) => f m -> m
 summarize fm = foldr (<>) mempty fm
 ```
 
-## Categories 101
-
-En kategori är en algebraisk struktur för att modellera objekt och deras
-relationer. En kategori **C** består av en samling objekt och pilar mellan objekt.
-
-![](images/category.jpg)
-
-## Functor
-
-Inom kategoriteori är en Functor **F** en transformation mellan två kategorier
-**A** och **B**.
-
-![](images/functor.jpg)
-
-## Functor
-En functor **F** som transformerar en kategori **A** till sig själv kallas för
-endofunctor.
-
-<img src="images/endofunctor.jpg" height="500" />
-
 ## Functor
 
 ```{.haskell}
@@ -584,10 +564,6 @@ gList (x:xs) = g x : fList xs
 ```
 
 ## Functors i Haskell
-
-En typkonstruktor `* -> *` i kategorin Haskell vars objekt är typer och funktioner i Haskell.
-
-. . .
 
 ```{.haskell}
 class Functor (f :: * -> *) where
