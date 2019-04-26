@@ -22,29 +22,22 @@ This is my note.
 
 ## Motiverande exempel 
 
-Imperativa program kan vara svåra att resonera om.
-
-. . .
-
 ```{.c}
 int method(int arg) {
   print(arg);
   return arg * 2;
 }
+```
+. . .
 
+```{.c}
 int program(int arg) {
   return (method(arg) + method(arg));
 }
 ```
-
 . . .
 
 ```{.c}
-int method(int arg) {
-  print(arg);
-  return arg * 2;
-}
-
 int program(int arg) {
   int result = method(arg);
   return (result + result);
