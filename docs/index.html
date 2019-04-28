@@ -65,28 +65,22 @@
 <section id="motiverande-exempel" class="slide level2">
 <h2>Motiverande exempel</h2>
 <pre class="c"><code>int method(int arg) {
-  print(arg);
-  return arg * 2;
-}</code></pre>
-<div class="fragment">
-<pre class="c"><code>int program(int arg) {
-  return (method(arg) + method(arg));
-}</code></pre>
-</div>
-<div class="fragment">
-<pre class="c"><code>int program(int arg) {
-  int result = method(arg);
-  return (result + result);
-}</code></pre>
-</div>
-</section>
-<section id="vad-är-funktionell-programmering" class="slide level2">
-<h2>Vad är funktionell programmering?</h2>
-<pre class="c"><code>int method(int arg) {
+  log(...);
   return arg * 2;
 }
 
-int program(int arg) {
+int method2(int arg) {
+  return (method(arg) + method(arg));
+}</code></pre>
+</section>
+<section id="motiverande-exempel-1" class="slide level2">
+<h2>Motiverande exempel</h2>
+<pre class="c"><code>int method(int arg) {
+  log(...);
+  return arg * 2;
+}
+
+int method2(int arg) {
   int result = method(arg);
   return (result + result);
 }</code></pre>
@@ -317,9 +311,7 @@ Maybe Int :: *</code></pre>
   x * y = ...</code></pre>
 </div>
 <div class="fragment">
-<pre class="haskell"><code>sum :: Num a =&gt; [a] -&gt; a
-sum []     = 0
-sum (x:xs) = x + sum xs</code></pre>
+<pre class="haskell"><code>sum :: Num a =&gt; [a] -&gt; a</code></pre>
 </div>
 </section>
 <section id="semigroup-monoid" class="slide level2">
