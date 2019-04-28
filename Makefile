@@ -80,7 +80,7 @@ target/html/index.html: $(SRCS) src/header.html src/theme.css $(IMAGES)
 		-t revealjs \
 		-V theme=ebackman \
 		-V controls=true \
-		-V transition=slide \
+		-V transition=none \
 		-V transitionSpeed=fast \
 		--no-highlight \
 		-H src/header.html \
