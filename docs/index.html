@@ -148,9 +148,9 @@ p = square 2</code></pre>
 <section id="haskell-och-io" class="slide level2">
 <h2>Haskell och IO</h2>
 <p>I Haskell är en (sido)effekt ett första-klassens värde.</p>
-<pre class="haskell"><code>getLine :: IO String             -- En effekt som producerar en `String`
+<pre class="haskell"><code>getLine :: IO String 
 
-putStrLn :: String -&gt; IO ()      -- En funktion från `String` till en effekt</code></pre>
+putStrLn :: String -&gt; IO ()</code></pre>
 <p>Det enda sättet att exekvera en effekt är genom att likställa den med main.</p>
 <pre class="haskell"><code>module Main where
 
