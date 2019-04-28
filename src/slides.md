@@ -113,9 +113,9 @@ Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 I Haskell är en (sido)effekt ett första-klassens värde.
 ```{.haskell}
-getLine :: IO String             -- En effekt som producerar en `String`
+getLine :: IO String 
 
-putStrLn :: String -> IO ()      -- En funktion från `String` till en effekt
+putStrLn :: String -> IO ()
 ```
 
 Det enda sättet att exekvera en effekt är genom att likställa den med main.
