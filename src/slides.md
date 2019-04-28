@@ -203,20 +203,6 @@ fst :: (a, b) -> a
 flip :: (a -> b -> c) -> b -> a -> c
 ```
 
-## Ad-hoc polymorfism
-
-```{.haskell}
-(+) :: Num a => a -> a -> a 
-```
-
-```{.haskell}
-(==) :: Eq a => a -> a -> Bool
-```
-
-```{.haskell}
-compare :: Ord a => a -> a -> Ordering
-```
-
 ## Algebraiska datatyper
 
 Algebraiska datatyper formar en algerbra med två operationer, summa och produkt.
