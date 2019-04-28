@@ -500,8 +500,8 @@ product xs = foldr (*) 1 xs
 . . .
 
 ```{.haskell}
-instance Semigroup [a] where
-  xs <> ys = foldr (:) ys xs
+(++) :: [a] -> [a] -> [a]
+xs ++ ys = foldr (:) ys xs
 ```
 . . .
 
@@ -518,16 +518,16 @@ g :: a -> b
 . . .
 
 ```{.haskell}
-gMaybe :: Maybe a -> Maybe b
-gMaybe Nothing  = Nothing
-gMaybe (Just x) = Just (g x)
+gList :: [a] -> [b] 
+gList []     = []
+gList (x:xs) = g x : fList xs
 ```
 . . .
 
 ```{.haskell}
-gList :: [a] -> [b] 
-gList []     = []
-gList (x:xs) = g x : fList xs
+gMaybe :: Maybe a -> Maybe b
+gMaybe Nothing  = Nothing
+gMaybe (Just x) = Just (g x)
 ```
 
 ## Functor 
