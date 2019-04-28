@@ -563,21 +563,11 @@ gList []     = []
 gList (x:xs) = g x : fList xs
 ```
 
-## Functors i Haskell
+## Functor 
 
 ```{.haskell}
 class Functor (f :: * -> *) where
   fmap :: (a -> b) -> f a -> f b
-```
-. . .
-
-```{.haskell}
-fa = Just 1 
-```
-. . .
-
-```{.haskell}
-fa = [1] 
 ```
 
 ## Functor
@@ -625,8 +615,6 @@ Just [2,3,4]
 ```
 
 ## Applicative
-
-Applicatives är monoidal functors. 
 
 ```{.haskell}
 class Functor f => Applicative (f :: * -> *) where
