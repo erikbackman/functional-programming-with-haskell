@@ -24,34 +24,24 @@ This is my note.
 
 ```{.c}
 int method(int arg) {
-  print(arg);
+  log(...);
   return arg * 2;
 }
-```
-. . .
 
-```{.c}
-int program(int arg) {
+int method2(int arg) {
   return (method(arg) + method(arg));
 }
 ```
-. . .
 
-```{.c}
-int program(int arg) {
-  int result = method(arg);
-  return (result + result);
-}
-```
-
-## Vad är funktionell programmering?
+## Motiverande exempel 
 
 ```{.c}
 int method(int arg) {
+  log(...);
   return arg * 2;
 }
 
-int program(int arg) {
+int method2(int arg) {
   int result = method(arg);
   return (result + result);
 }
@@ -382,8 +372,6 @@ instance Num Int where
 
 ```{.haskell}
 sum :: Num a => [a] -> a
-sum []     = 0
-sum (x:xs) = x + sum xs
 ```
 
 ## Semigroup & Monoid
