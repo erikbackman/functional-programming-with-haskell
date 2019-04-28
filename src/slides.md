@@ -98,13 +98,6 @@ Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 * Rent, funktionell programmeringsspråk med lat evaluering.
 * Släpptes första gången år 1990.
 * Stark statisk typning med typinferens.
-* Tolkat såväl som kompilerat.
-  * GHCi är en REPL där Haskell-kod kan tolkas.
-  * Källkod simpliferas till GHC-Core och optimeras.
-    * GHC-Core är en typad lambdacalculus kallad System FC
-  * GHC-Core kompileras till maskinkod.
-* Utbyggbart per design.
-
 
 ## Ren Funktionell Programmering <br/> med haskell
 ![](images/haskell_logo2.svg)
