@@ -90,7 +90,8 @@ int method2(int arg) {
 <p>Funktionell programmering och referenstransparens möjliggör för </br> ekvationella resonemang om ett programs egenskaper.</p>
 <div class="fragment">
 <p>I Haskell defineras en funktion som en ekvation.</p>
-<pre class="haskell"><code>square x = x * x
+<pre class="haskell"><code>square :: Num a =&gt; a -&gt; a
+square x = x * x
 
 p = square 2</code></pre>
 </div>
@@ -171,7 +172,10 @@ increment = add 1</code></pre>
 </section>
 <section id="högre-ordningens-funktioner-2" class="slide level2">
 <h2>Högre ordningens funktioner</h2>
-<p>\((f \circ g) x = f (g(x))\)</p>
+<p>\((f \circ g)(x) = f (g(x))\)</p>
+<div class="fragment">
+<pre class="haskell"><code>(f . g) x</code></pre>
+</div>
 <div class="fragment">
 <pre class="haskell"><code>(.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; (a -&gt; c)</code></pre>
 </div>

@@ -157,7 +157,13 @@ increment = add 1
 
 ## Högre ordningens funktioner
 
-\\((f \\circ g) x = f (g(x))\\)
+\\((f \\circ g)(x) = f (g(x))\\)
+
+. . .
+
+```{.haskell}
+(f . g) x
+```
 
 . . .
 
