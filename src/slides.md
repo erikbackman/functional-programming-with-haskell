@@ -57,7 +57,7 @@ ekvationella resonemang om ett programs egenskaper.
 I Haskell defineras en funktion som en ekvation.
 
 ```{.haskell}
-square :: Int -> Int
+square :: Num a => a -> a
 square x = x * x
 
 p = square 2
