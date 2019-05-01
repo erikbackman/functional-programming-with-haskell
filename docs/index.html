@@ -65,7 +65,7 @@
 <section id="motiverande-exempel" class="slide level2">
 <h2>Motiverande exempel</h2>
 <pre class="c"><code>int method(int arg) {
-  log(...);
+  x++; 
   return arg * 2;
 }
 
@@ -76,7 +76,7 @@ int method2(int arg) {
 <section id="motiverande-exempel-1" class="slide level2">
 <h2>Motiverande exempel</h2>
 <pre class="c"><code>int method(int arg) {
-  log(...);
+  x++; 
   return arg * 2;
 }
 
@@ -87,14 +87,13 @@ int method2(int arg) {
 </section>
 <section id="ekvationella-resonemang" class="slide level2">
 <h2>Ekvationella resonemang</h2>
-<p>Funktionell programmering och referenstransparens möjliggör för </br> ekvationella resonemang om ett programs egenskaper.</p>
-<div class="fragment">
-<p>I Haskell defineras en funktion som en ekvation.</p>
+<aside class="notes">
+<p>Funktionell programmering möjliggör för ekvationella resonemang om vårt programs egenskaper. Vi kan med andra ord förstå betydelsen av ett uttryck genom simpel subsitution.</p>
+</aside>
 <pre class="haskell"><code>square :: Num a =&gt; a -&gt; a
 square x = x * x
 
 p = square 2</code></pre>
-</div>
 <div class="fragment">
 <p>Likhet innebär att vi kan substituera square x för x * x och vice versa.</p>
 <pre class="haskell"><code>p = 2 * 2</code></pre>
@@ -558,6 +557,11 @@ fmap f (g 1) :: Maybe (Maybe Int)</code></pre>
 <li>Haskell Platform</li>
 <li>GHC</li>
 </ul>
+<div class="fragment">
+<ul>
+<li>ghcup (<a href="https://github.com/haskell/ghcup">https://github.com/haskell/ghcup</a>)</li>
+</ul>
+</div>
 </section>
 <section id="böcker" class="slide level2">
 <h2>Böcker</h2>

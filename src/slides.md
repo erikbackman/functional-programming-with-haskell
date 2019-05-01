@@ -24,7 +24,7 @@ This is my note.
 
 ```{.c}
 int method(int arg) {
-  log(...);
+  x++; 
   return arg * 2;
 }
 
@@ -37,7 +37,7 @@ int method2(int arg) {
 
 ```{.c}
 int method(int arg) {
-  log(...);
+  x++; 
   return arg * 2;
 }
 
@@ -49,12 +49,10 @@ int method2(int arg) {
 
 ## Ekvationella resonemang 
 
-Funktionell programmering och referenstransparens möjliggör för </br>
-ekvationella resonemang om ett programs egenskaper.
-
-. . .
-
-I Haskell defineras en funktion som en ekvation.
+<div class="notes">
+  Funktionell programmering möjliggör för ekvationella resonemang om vårt programs egenskaper.
+  Vi kan med andra ord förstå betydelsen av ett uttryck genom simpel subsitution.
+</div>
 
 ```{.haskell}
 square :: Num a => a -> a
@@ -88,11 +86,34 @@ Ett Haskell-program är ett enda stort referentiellt transparent uttryck.
 
 . . .
 
+```{.c}
+decimal div(decimal x, decimal y) {
+  if (y == 0) then throw new DivideByZeroException();
+  else return (x / y); 
+}
+```
+
+. . .
+
 * Deterministisk
 
 . . .
 
+```{.c}
+string getLogMessage(string msg) {
+  return DateTime.Now().ToString() + ": " + msg;
+}
+```
+
+. . .
+
 * Inga sido-effekter
+
+. . .
+
+```{.c}
+mylist.Add("foo");
+```
 
 
 ## Vad är Haskell?
@@ -657,6 +678,10 @@ ett argument: \\(f\\ a\\)
 * **Haskell Stack**
 * Haskell Platform
 * GHC
+
+. . .
+
+* ghcup ([https://github.com/haskell/ghcup](https://github.com/haskell/ghcup))
 
 ## Böcker
 
